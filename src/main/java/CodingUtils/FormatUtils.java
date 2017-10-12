@@ -5,6 +5,16 @@ import java.util.List;
 
 import static CodingUtils.AssertUtils.assertNotEmpty;
 
+/*................................................................................................................................
+ . Copyright (c)
+ .
+ . The FormatUtils	 Class was Coded by : Alexandre BOLOT
+ .
+ . Last Modified : 13/10/17 00:55
+ .
+ . Contact : bolotalex06@gmail.com
+ ...............................................................................................................................*/
+
 @SuppressWarnings ({"unused", "WeakerAccess"})
 public class FormatUtils
 {

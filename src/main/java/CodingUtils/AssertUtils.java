@@ -1,17 +1,17 @@
 package CodingUtils;
 
+import java.util.List;
+import java.util.Map;
+
 /*................................................................................................................................
  . Copyright (c)
  .
  . The AssertUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 07/10/17 01:51
+ . Last Modified : 13/10/17 00:55
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
-
-import java.util.List;
-import java.util.Map;
 
 @SuppressWarnings ({"WeakerAccess", "unused"})
 public class AssertUtils
