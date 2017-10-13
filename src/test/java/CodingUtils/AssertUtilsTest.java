@@ -10,7 +10,7 @@ import java.util.*;
  .
  . The AssertUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 13/10/17 14:51
+ . Last Modified : 13/10/17 15:07
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -18,6 +18,8 @@ import java.util.*;
 @SuppressWarnings ("ConstantConditions")
 public class AssertUtilsTest
 {
+    private Random random = new Random();
+
     //region ==================== assert not null (2 -> 5) ==============================
 
     //region ========== using 1 parameter ============
@@ -245,8 +247,6 @@ public class AssertUtilsTest
     @Test
     public void assertStrictlyPositive_AnonymInt_Right ()
     {
-        Random random = new Random();
-
         for (int i = 0; i < 50000; i++)
         {
             //Making sure we have a positive number
@@ -269,8 +269,6 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertStrictlyPositive_AnonymInt_Negative ()
     {
-        Random random = new Random();
-
         for (int i = 0; i < 50000; i++)
         {
             //Making sure we have a negative number
@@ -287,8 +285,6 @@ public class AssertUtilsTest
     @Test
     public void assertStrictlyPositive_NamesInt_Right ()
     {
-        Random random = new Random();
-
         for (int i = 0; i < 50000; i++)
         {
             //Making sure we have a positive number
@@ -311,8 +307,6 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertStrictlyPositive_NamedInt_Negative ()
     {
-        Random random = new Random();
-
         for (int i = 0; i < 50000; i++)
         {
             //Making sure we have a negative number
@@ -329,8 +323,6 @@ public class AssertUtilsTest
     @Test
     public void assertStrictlyPositive_AnonymFloat_Right ()
     {
-        Random random = new Random();
-
         for (int i = 0; i < 50000; i++)
         {
             //Making sure we have a positive number
@@ -353,8 +345,6 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertStrictlyPositive_AnonymFloat_Negative ()
     {
-        Random random = new Random();
-
         for (int i = 0; i < 50000; i++)
         {
             //Making sure we have a negative number
@@ -371,8 +361,6 @@ public class AssertUtilsTest
     @Test
     public void assertStrictlyPositive_NamedFloat_Right ()
     {
-        Random random = new Random();
-
         for (int i = 0; i < 50000; i++)
         {
             //Making sure we have a positive number
@@ -395,8 +383,6 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertStrictlyPositive_NamedFloat_Negative ()
     {
-        Random random = new Random();
-
         for (int i = 0; i < 50000; i++)
         {
             //Making sure we have a negative number
