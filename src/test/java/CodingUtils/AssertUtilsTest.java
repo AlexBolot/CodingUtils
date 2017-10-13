@@ -10,7 +10,7 @@ import java.util.*;
  .
  . The AssertUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 13/10/17 15:07
+ . Last Modified : 13/10/17 15:16
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -19,6 +19,9 @@ import java.util.*;
 public class AssertUtilsTest
 {
     private Random random = new Random();
+    private String              string;
+    private List<Object>        objectList;
+    private Map<Object, Object> objectMap;
 
     //region ==================== assert not null (2 -> 5) ==============================
 
@@ -87,21 +90,21 @@ public class AssertUtilsTest
     @Test
     public void assertNotEmpty_AnonymousString_Right ()
     {
-        String string = "This String is not empty nor null";
+        string = "This String is not empty nor null";
         AssertUtils.assertNotEmpty(string);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_AnonymousString_Empty ()
     {
-        String string = "";
+        string = "";
         AssertUtils.assertNotEmpty(string);
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_AnonymousString_Null ()
     {
-        String string = null;
+        string = null;
         AssertUtils.assertNotEmpty(string);
     }
     //endregion
@@ -110,21 +113,21 @@ public class AssertUtilsTest
     @Test
     public void assertNotEmpty_NamedString_Right ()
     {
-        String string = "This String is not empty nor null";
+        string = "This String is not empty nor null";
         AssertUtils.assertNotEmpty(string, "TestString");
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_NamedString_Empty ()
     {
-        String string = "";
+        string = "";
         AssertUtils.assertNotEmpty(string, "TestString");
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_NamedString_Null ()
     {
-        String string = null;
+        string = null;
         AssertUtils.assertNotEmpty(string, "TestString");
     }
     //endregion
@@ -133,7 +136,7 @@ public class AssertUtilsTest
     @Test
     public void assertNotEmpty_AnonymousList_Right ()
     {
-        List<Object> objectList = Arrays.asList(new Object(), new Object(), new Object());
+        objectList = Arrays.asList(new Object(), new Object(), new Object());
 
         AssertUtils.assertNotEmpty(objectList);
     }
@@ -141,7 +144,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_AnonymousList_Empty ()
     {
-        List<Object> objectList = Collections.emptyList();
+        objectList = Collections.emptyList();
 
         AssertUtils.assertNotEmpty(objectList);
     }
@@ -149,7 +152,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_AnonymousList_Null ()
     {
-        List<Object> objectList = null;
+        objectList = null;
 
         AssertUtils.assertNotEmpty(objectList);
     }
@@ -159,7 +162,7 @@ public class AssertUtilsTest
     @Test
     public void assertNotEmpty_NamedList_Right ()
     {
-        List<Object> objectList = Arrays.asList(new Object(), new Object(), new Object());
+        objectList = Arrays.asList(new Object(), new Object(), new Object());
 
         AssertUtils.assertNotEmpty(objectList, "TestingList");
     }
@@ -167,7 +170,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_NamedList_Empty ()
     {
-        List<Object> objectList = Collections.emptyList();
+        objectList = Collections.emptyList();
 
         AssertUtils.assertNotEmpty(objectList, "TestingList");
     }
@@ -175,7 +178,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_NamedList_Null ()
     {
-        List<Object> objectList = null;
+        objectList = null;
 
         AssertUtils.assertNotEmpty(objectList, "TestingList");
     }
@@ -185,7 +188,7 @@ public class AssertUtilsTest
     @Test
     public void assertNotEmpty_AnonymousMap_Right ()
     {
-        Map<Object, Object> objectMap = new HashMap<>();
+        objectMap = new HashMap<>();
         objectMap.put(new Object(), new Object());
         objectMap.put(new Object(), new Object());
         objectMap.put(new Object(), new Object());
@@ -196,7 +199,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_AnonymousMap_Empty ()
     {
-        Map<Object, Object> objectMap = new HashMap<>();
+        objectMap = new HashMap<>();
 
         AssertUtils.assertNotEmpty(objectMap);
     }
@@ -204,7 +207,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_AnonymousMap_Null ()
     {
-        Map<Object, Object> objectMap = null;
+        objectMap = null;
 
         AssertUtils.assertNotEmpty(objectMap);
     }
@@ -214,7 +217,7 @@ public class AssertUtilsTest
     @Test
     public void assertNotEmpty_NamedMap_Right ()
     {
-        Map<Object, Object> objectMap = new HashMap<>();
+        objectMap = new HashMap<>();
         objectMap.put(new Object(), new Object());
         objectMap.put(new Object(), new Object());
         objectMap.put(new Object(), new Object());
@@ -225,7 +228,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_NamedMap_Empty ()
     {
-        Map<Object, Object> objectMap = new HashMap<>();
+        objectMap = new HashMap<>();
 
         AssertUtils.assertNotEmpty(objectMap, "TestingList");
     }
@@ -233,7 +236,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_NamedMap_Null ()
     {
-        Map<Object, Object> objectMap = null;
+        objectMap = null;
 
         AssertUtils.assertNotEmpty(objectMap, "TestingList");
     }
