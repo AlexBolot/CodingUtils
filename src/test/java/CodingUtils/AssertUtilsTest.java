@@ -10,7 +10,7 @@ import java.util.*;
  .
  . The AssertUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 13/10/17 15:16
+ . Last Modified : 13/10/17 16:13
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -250,7 +250,7 @@ public class AssertUtilsTest
     @Test
     public void assertStrictlyPositive_AnonymInt_Right ()
     {
-        for (int i = 0; i < 50000; i++)
+        for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a positive number
             int value = Math.abs(random.nextInt()) + 1;
@@ -272,7 +272,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertStrictlyPositive_AnonymInt_Negative ()
     {
-        for (int i = 0; i < 50000; i++)
+        for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a negative number
             int value = -Math.abs(random.nextInt()) - 1;
@@ -288,7 +288,7 @@ public class AssertUtilsTest
     @Test
     public void assertStrictlyPositive_NamesInt_Right ()
     {
-        for (int i = 0; i < 50000; i++)
+        for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a positive number
             int value = Math.abs(random.nextInt()) + 1;
@@ -310,7 +310,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertStrictlyPositive_NamedInt_Negative ()
     {
-        for (int i = 0; i < 50000; i++)
+        for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a negative number
             int value = -Math.abs(random.nextInt()) - 1;
@@ -326,7 +326,7 @@ public class AssertUtilsTest
     @Test
     public void assertStrictlyPositive_AnonymFloat_Right ()
     {
-        for (int i = 0; i < 50000; i++)
+        for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a positive number
             float value = Math.abs(random.nextFloat()) + 1;
@@ -348,7 +348,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertStrictlyPositive_AnonymFloat_Negative ()
     {
-        for (int i = 0; i < 50000; i++)
+        for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a negative number
             float value = -Math.abs(random.nextFloat()) - 1;
@@ -364,7 +364,7 @@ public class AssertUtilsTest
     @Test
     public void assertStrictlyPositive_NamedFloat_Right ()
     {
-        for (int i = 0; i < 50000; i++)
+        for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a positive number
             float value = Math.abs(random.nextFloat()) + 1;
@@ -386,7 +386,7 @@ public class AssertUtilsTest
     @Test (expected = IllegalArgumentException.class)
     public void assertStrictlyPositive_NamedFloat_Negative ()
     {
-        for (int i = 0; i < 50000; i++)
+        for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a negative number
             float value = -Math.abs(random.nextFloat()) - 1;

@@ -4,13 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import static CodingUtils.AssertUtils.assertNotEmpty;
+import static CodingUtils.AssertUtils.assertNotNull;
 
 /*................................................................................................................................
  . Copyright (c)
  .
  . The FormatUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 13/10/17 00:55
+ . Last Modified : 13/10/17 15:59
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -56,12 +57,14 @@ public class FormatUtils
      <hr>
 
      @param string String to parse
-     @return The Integer value of [string] if parsable, otherwise Integer.MIN_VALUE
+     @return The Integer value of [string] if parsable.<br>(if not, IAE has already been thrown)
      @throws IllegalArgumentException If [string] is null or empty
      */
     public static int tryParseInt (String string) throws IllegalArgumentException
     {
-        return isInteger(string) ? Integer.parseInt(string) : Integer.MIN_VALUE;
+        if (!isInteger(string)) throw new IllegalArgumentException(string + " can't be parsed into an int");
+
+        return Integer.parseInt(string);
     }
 
     /**
@@ -77,7 +80,10 @@ public class FormatUtils
      */
     public static String toFirstUpperCase (String string) throws IllegalArgumentException
     {
-        assertNotEmpty(string);
+        assertNotNull(string);
+
+        if (string.isEmpty()) return string;
+        if (string.length() == 1) return string.toUpperCase();
 
         return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
     }
@@ -94,7 +100,7 @@ public class FormatUtils
      */
     public static void printList (List<Object> objects) throws IllegalArgumentException
     {
-        assertNotEmpty(objects);
+        assertNotNull(objects);
 
         for (Object object : objects)
         {
@@ -116,6 +122,8 @@ public class FormatUtils
      */
     public static void printArray (Object... objects)
     {
+        assertNotNull(objects);
+
         printList(Arrays.asList(objects));
     }
 }
