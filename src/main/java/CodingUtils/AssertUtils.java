@@ -8,7 +8,7 @@ import java.util.Map;
  .
  . The AssertUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 13/10/17 00:55
+ . Last Modified : 13/10/17 13:01
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -24,12 +24,16 @@ public class AssertUtils
      <h3>If one of them is —> throws IllegalArgumentException.</h3>
      Note : <i>getMessage()</i> of the IAE contains the index of the first null object found.<br>
      <br>
+     Note 2 : already asserts [objects] isn't null.<br>
+     <br>
      <hr>
 
      @param objects List of Objects to test for null value
      */
     public static void assertNotNull (Object... objects) throws IllegalArgumentException
     {
+        assertNotNull(objects, "List of Objects");
+
         for (int i = 0; i < objects.length; i++)
         {
             Object obj = objects[i];
@@ -53,8 +57,7 @@ public class AssertUtils
      */
     public static void assertNotNull (Object object, String objectName) throws IllegalArgumentException
     {
-        assertNotEmpty(objectName, objectName);
-
+        if (objectName.isEmpty()) throw new IllegalArgumentException("objectName is empty");
         if (object == null) throw new IllegalArgumentException(objectName + " is null");
     }
     //endregion
