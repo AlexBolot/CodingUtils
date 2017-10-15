@@ -1,6 +1,6 @@
-<h2>What it does :</h2>
+<h1>Coding Utils :</h1>
 
-<h3>1 AssertUtils</h3>
+<h3>1. AssertUtils</h3>
 
 This class contains methods used to test values.<br>
 When calling those asserting methods :<br>
@@ -16,7 +16,8 @@ public void assertNotNull (Object... objects)
 </pre>
 
 <hr>
-<h3>2 FormatUtils</h3> 
+
+<h3>2. FormatUtils</h3> 
 
 This class contains mehtods used to format or print things.<br>
 
