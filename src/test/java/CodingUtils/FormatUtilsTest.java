@@ -2,8 +2,10 @@ package CodingUtils;
 
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +16,7 @@ import static org.junit.Assert.*;
  .
  . The FormatUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 13/10/17 16:12
+ . Last Modified : 15/10/17 23:06
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -24,6 +26,19 @@ public class FormatUtilsTest
 {
     private Random random = new Random();
     private String string;
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+    private void setUp_OutputStream ()
+    {
+        System.setOut(new PrintStream(outputStream));
+    }
+
+    private void clear_OutputStream ()
+    {
+        System.setOut(null);
+    }
+
+    //region ==================== isInteger (x4) ===================================
 
     @Test
     public void isInteger_Right ()
@@ -56,6 +71,10 @@ public class FormatUtilsTest
 
         FormatUtils.isInteger(string);
     }
+
+    //endregion
+
+    //region ==================== tryParseInt (x4) =================================
 
     @Test
     public void tryParseInt_Right ()
@@ -90,6 +109,10 @@ public class FormatUtilsTest
         FormatUtils.tryParseInt(string);
     }
 
+    //endregion
+
+    //region ==================== toFirstUpperCase (x2) ============================
+
     @Test
     public void toFirstUpperCase_Right ()
     {
@@ -104,6 +127,15 @@ public class FormatUtilsTest
 
         string = "Ab";
         assertEquals("Ab", FormatUtils.toFirstUpperCase(string));
+
+        string = "A";
+        assertEquals("A", FormatUtils.toFirstUpperCase(string));
+
+        string = "a";
+        assertEquals("A", FormatUtils.toFirstUpperCase(string));
+
+        string = "";
+        assertEquals("", FormatUtils.toFirstUpperCase(string));
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -114,18 +146,38 @@ public class FormatUtilsTest
         FormatUtils.toFirstUpperCase(string);
     }
 
+    //endregion
+
+    //region ==================== printList (x2) ===================================
+
     @Test
     public void printList_Right ()
     {
-        //TODO : find a better way to test this method...
+        setUp_OutputStream();
 
-        //should not trigger any Exception
-        List<Object> objects = Arrays.asList(new Object(), new Object(), new Object());
-        FormatUtils.printArray(objects);
+        Object o1 = new Object();
+        Object o2 = new Object();
+        Object o3 = new Object();
 
-        //should not trigger any Exception
-        objects = Collections.emptyList();
-        FormatUtils.printArray(objects);
+        List<Object> objects = Arrays.asList(o1, o2, o3);
+        FormatUtils.printList(objects);
+
+        assertEquals(o1.toString() + "\n" + o2.toString() + "\n" + o3.toString(), outputStream.toString());
+
+        clear_OutputStream();
+    }
+
+    @Test
+    public void printList_Empty ()
+    {
+        setUp_OutputStream();
+
+        ArrayList<Object> objects = new ArrayList<>();
+        FormatUtils.printList(objects);
+
+        assertEquals("", outputStream.toString());
+
+        clear_OutputStream();
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -136,19 +188,38 @@ public class FormatUtilsTest
         FormatUtils.printList(objectList);
     }
 
+    //endregion
+
+    //region ==================== printArray (x2) ==================================
+
     @Test
     public void printArray_Right ()
     {
-        //TODO : find a better way to test this method...
+        setUp_OutputStream();
 
-        //should not trigger any Exception
-        Object[] objects = new Object[]{new Object(), new Object(), new Object()};
+        Object o1 = new Object();
+        Object o2 = new Object();
+        Object o3 = new Object();
+
+        Object[] objects = {o1, o2, o3};
         FormatUtils.printArray(objects);
 
+        assertEquals(o1.toString() + "\n" + o2.toString() + "\n" + o3.toString(), outputStream.toString());
 
-        //should not trigger any Exception
-        objects = new Object[]{};
+        clear_OutputStream();
+    }
+
+    @Test
+    public void printArray_Empty ()
+    {
+        setUp_OutputStream();
+
+        Object[] objects = new Object[]{};
         FormatUtils.printArray(objects);
+
+        assertEquals("", outputStream.toString());
+
+        clear_OutputStream();
     }
 
     @Test (expected = IllegalArgumentException.class)
@@ -156,4 +227,6 @@ public class FormatUtilsTest
     {
         FormatUtils.printArray((Object[]) null);
     }
+
+    //endregion
 }

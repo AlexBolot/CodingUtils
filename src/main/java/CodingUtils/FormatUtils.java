@@ -11,7 +11,7 @@ import static CodingUtils.AssertUtils.assertNotNull;
  .
  . The FormatUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 13/10/17 15:59
+ . Last Modified : 15/10/17 22:46
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -102,10 +102,16 @@ public class FormatUtils
     {
         assertNotNull(objects);
 
+        StringBuilder str = new StringBuilder();
+
         for (Object object : objects)
         {
-            System.out.println(object);
+            str.append(object).append("\n");
         }
+
+        if (str.length() > 0) str.deleteCharAt(str.length() - 1);
+
+        System.out.print(str.toString());
     }
 
     /**
