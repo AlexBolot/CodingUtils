@@ -1,4 +1,6 @@
-<h1>Coding Utils :</h1>
+<h1>Coding Utils : 
+<a href="https://www.codefactor.io/repository/github/alexbolot/codingutils"><img src="https://www.codefactor.io/repository/github/alexbolot/codingutils/badge" /></a>
+</h1> 
 
 <h3>1. AssertUtils</h3>
 
