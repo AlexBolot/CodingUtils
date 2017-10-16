@@ -9,14 +9,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /*................................................................................................................................
  . Copyright (c)
  .
  . The FormatUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 15/10/17 23:06
+ . Last Modified : 16/10/17 16:42
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -37,79 +37,6 @@ public class FormatUtilsTest
     {
         System.setOut(null);
     }
-
-    //region ==================== isInteger (x4) ===================================
-
-    @Test
-    public void isInteger_Right ()
-    {
-        string = String.valueOf(random.nextInt());
-
-        assertTrue(FormatUtils.isInteger(string));
-    }
-
-    @Test
-    public void isInteger_NotParsable ()
-    {
-        string = "This can not be parsed into an int";
-
-        assertFalse(FormatUtils.isInteger(string));
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void isInteger_Null ()
-    {
-        string = null;
-
-        FormatUtils.isInteger(string);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void isInteger_Empty ()
-    {
-        string = "";
-
-        FormatUtils.isInteger(string);
-    }
-
-    //endregion
-
-    //region ==================== tryParseInt (x4) =================================
-
-    @Test
-    public void tryParseInt_Right ()
-    {
-        int value = random.nextInt();
-        string = String.valueOf(value);
-
-        assertEquals(value, FormatUtils.tryParseInt(string));
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseInt_NotParsable ()
-    {
-        string = "This can not be parsed into an int";
-
-        FormatUtils.tryParseInt(string);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseInt_Null ()
-    {
-        string = null;
-
-        FormatUtils.tryParseInt(string);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseInt_Empty ()
-    {
-        string = "";
-
-        FormatUtils.tryParseInt(string);
-    }
-
-    //endregion
 
     //region ==================== toFirstUpperCase (x2) ============================
 
