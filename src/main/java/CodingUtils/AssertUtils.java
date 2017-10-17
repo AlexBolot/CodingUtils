@@ -8,7 +8,7 @@ import java.util.Map;
  .
  . The AssertUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 13/10/17 13:01
+ . Last Modified : 17/10/17 12:48
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -32,12 +32,12 @@ public class AssertUtils
      */
     public static void assertNotNull (Object... objects) throws IllegalArgumentException
     {
-        assertNotNull(objects, "List of Objects");
+        if (objects == null) throw new IllegalArgumentException("Lost of Objects is null");
 
         for (int i = 0; i < objects.length; i++)
         {
             Object obj = objects[i];
-            if (obj == null) throw new IllegalArgumentException("Object at index " + i + " is null");
+            if (obj == null) throw new IllegalArgumentException(" at index " + i + " is null");
         }
     }
 
@@ -57,7 +57,9 @@ public class AssertUtils
      */
     public static void assertNotNull (Object object, String objectName) throws IllegalArgumentException
     {
+        if (objectName == null) throw new IllegalArgumentException("objectName is null");
         if (objectName.isEmpty()) throw new IllegalArgumentException("objectName is empty");
+
         if (object == null) throw new IllegalArgumentException(objectName + " is null");
     }
     //endregion
@@ -76,8 +78,7 @@ public class AssertUtils
      */
     public static void assertNotEmpty (String string) throws IllegalArgumentException
     {
-        assertNotNull(string, "string");
-
+        if (string == null) throw new IllegalArgumentException("String is null");
         if (string.isEmpty()) throw new IllegalArgumentException("String is empty");
     }
 
@@ -97,9 +98,10 @@ public class AssertUtils
      */
     public static void assertNotEmpty (String string, String stringName) throws IllegalArgumentException
     {
-        assertNotNull(stringName, "stringName");
-        assertNotNull(string, stringName);
+        if (stringName == null) throw new IllegalArgumentException("stringName is null");
+        if (stringName.isEmpty()) throw new IllegalArgumentException("stringName is empty");
 
+        if (string == null) throw new IllegalArgumentException(stringName + " is null");
         if (string.isEmpty()) throw new IllegalArgumentException(stringName + " is empty");
     }
 
@@ -115,8 +117,7 @@ public class AssertUtils
      */
     public static void assertNotEmpty (List list) throws IllegalArgumentException
     {
-        assertNotNull(list, "list");
-
+        if (list == null) throw new IllegalArgumentException("List is null");
         if (list.isEmpty()) throw new IllegalArgumentException("List is empty");
     }
 
@@ -136,9 +137,10 @@ public class AssertUtils
      */
     public static void assertNotEmpty (List list, String listName) throws IllegalArgumentException
     {
-        assertNotNull(listName, "listName");
-        assertNotNull(list, listName);
+        if (listName == null) throw new IllegalArgumentException("listName is null");
+        if (listName.isEmpty()) throw new IllegalArgumentException("listName is empty");
 
+        if (list == null) throw new IllegalArgumentException(listName + " is null");
         if (list.isEmpty()) throw new IllegalArgumentException(listName + " is empty");
     }
 
@@ -154,8 +156,7 @@ public class AssertUtils
      */
     public static void assertNotEmpty (Map map) throws IllegalArgumentException
     {
-        assertNotNull(map, "map");
-
+        if (map == null) throw new IllegalArgumentException("Map is null");
         if (map.isEmpty()) throw new IllegalArgumentException("Map is empty");
     }
 
@@ -175,9 +176,10 @@ public class AssertUtils
      */
     public static void assertNotEmpty (Map map, String mapName) throws IllegalArgumentException
     {
-        assertNotNull(mapName, "mapName");
-        assertNotNull(map, mapName);
+        if (mapName == null) throw new IllegalArgumentException("mapName is null");
+        if (mapName.isEmpty()) throw new IllegalArgumentException("mapName is empty");
 
+        if (map == null) throw new IllegalArgumentException(mapName + " is null");
         if (map.isEmpty()) throw new IllegalArgumentException(mapName + " is empty");
     }
     //endregion
@@ -213,7 +215,8 @@ public class AssertUtils
      */
     public static void assertStrictlyPositive (int val, String valueName) throws IllegalArgumentException
     {
-        assertNotEmpty(valueName, "valueName");
+        if (valueName == null) throw new IllegalArgumentException("valueName is null");
+        if (valueName.isEmpty()) throw new IllegalArgumentException("valueName is empty");
 
         if (val <= 0) throw new IllegalArgumentException(valueName + " is not strictly positive");
     }
@@ -247,7 +250,8 @@ public class AssertUtils
      */
     public static void assertStrictlyPositive (float val, String valueName) throws IllegalArgumentException
     {
-        assertNotEmpty(valueName, "valueName");
+        if (valueName == null) throw new IllegalArgumentException("valueName is null");
+        if (valueName.isEmpty()) throw new IllegalArgumentException("valueName is empty");
 
         if (val <= 0) throw new IllegalArgumentException(valueName + " is not strictly positive");
     }
