@@ -2,37 +2,34 @@ package CodingUtils;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static CodingUtils.AssertUtils.assertNotNull;
+import java.util.Objects;
 
 /*................................................................................................................................
  . Copyright (c)
  .
  . The FormatUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 16/10/17 16:42
+ . Last Modified : 02/12/17 00:11
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
-@SuppressWarnings ({"unused", "WeakerAccess"})
+@SuppressWarnings ({"WeakerAccess", "unused"})
 public class FormatUtils
 {
-
     /**
      <hr>
      <h2>Formats [string] with FirstUpperCase format</h2>
-     Note : already asserts [string] isn't null or empty.<br>
+     Note : asserts [string] param isn't null.<br>
      <br>
      <hr>
 
      @param string String to format
      @return A formatted version of [string]
-     @throws IllegalArgumentException If [string] is null or empty
      */
-    public static String toFirstUpperCase (String string) throws IllegalArgumentException
+    public static String toFirstUpperCase (String string)
     {
-        assertNotNull(string);
+        Objects.requireNonNull(string, "String param is null");
 
         if (string.isEmpty()) return string;
         if (string.length() == 1) return string.toUpperCase();
@@ -43,25 +40,31 @@ public class FormatUtils
     /**
      <hr>
      <h2>Prints all elements of the [objects] list</h2>
-     Note : already asserts [objects] isn't null or empty.<br>
+     Note : asserts [objects] param isn't null.<br>
      <br>
      <hr>
 
-     @param objects List of Objects to be printed
-     @throws IllegalArgumentException If [objects] is null or empty
+     @param objects List of T objects to be printed
      */
-    public static void printList (List<Object> objects) throws IllegalArgumentException
+    public static <T> void printListFancy (List<T> objects, String start, String separator, String end)
     {
-        assertNotNull(objects);
+        Objects.requireNonNull(objects, "List param is null");
+
+        if (objects.isEmpty())
+        {
+            System.out.print(start + end);
+            return;
+        }
 
         StringBuilder str = new StringBuilder();
 
-        for (Object object : objects)
-        {
-            str.append(object).append("\n");
-        }
+        str.append(start == null ? "" : start);
 
-        if (str.length() > 0) str.deleteCharAt(str.length() - 1);
+        objects.forEach(o -> str.append(o).append(separator == null ? "" : separator));
+
+        if (separator != null) str.deleteCharAt(str.length() - separator.length());
+
+        str.append(end == null ? "" : end);
 
         System.out.print(str.toString());
     }
@@ -69,19 +72,32 @@ public class FormatUtils
     /**
      <hr>
      <h2>Prints all elements of the [objects] array</h2>
-     Note 1 : see {@link FormatUtils#printList(List)}.<br>
-     <br>
-     Note 2 : already asserts [objects] isn't null or empty.<br>
+     Note : asserts [objects] param isn't null.<br>
      <br>
      <hr>
 
-     @param objects List of Objects to be printed
-     @throws IllegalArgumentException If [objects] is null or empty
+     @param objects Array of T objects to be printed
      */
-    public static void printArray (Object... objects)
+    public static <T> void printArrayFancy (T[] objects, String start, String separator, String end)
     {
-        assertNotNull(objects);
+        Objects.requireNonNull(objects, "Array param is null");
 
-        printList(Arrays.asList(objects));
+        if (objects.length == 0)
+        {
+            System.out.print(start + end);
+            return;
+        }
+
+        StringBuilder str = new StringBuilder();
+
+        str.append(start == null ? "" : start);
+
+        Arrays.asList(objects).forEach(o -> str.append(o).append(separator == null ? "" : separator));
+
+        if (separator != null) str.deleteCharAt(str.length() - separator.length());
+
+        str.append(end == null ? "" : end);
+
+        System.out.print(str.toString());
     }
 }

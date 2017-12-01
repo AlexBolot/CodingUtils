@@ -7,7 +7,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  .
  . The FormatUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 16/10/17 16:42
+ . Last Modified : 02/12/17 00:09
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -24,7 +23,6 @@ import static org.junit.Assert.assertEquals;
 @SuppressWarnings ("ConstantConditions")
 public class FormatUtilsTest
 {
-    private Random random = new Random();
     private String string;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -38,7 +36,7 @@ public class FormatUtilsTest
         System.setOut(null);
     }
 
-    //region ==================== toFirstUpperCase (x2) ============================
+    //region ==================== toFirstUpperCase (1 -> 2) ============================
 
     @Test
     public void toFirstUpperCase_Right ()
@@ -65,7 +63,7 @@ public class FormatUtilsTest
         assertEquals("", FormatUtils.toFirstUpperCase(string));
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = NullPointerException.class)
     public void toFirstUpperCase_Null ()
     {
         string = null;
@@ -75,7 +73,7 @@ public class FormatUtilsTest
 
     //endregion
 
-    //region ==================== printList (x2) ===================================
+    //region ==================== printList (1 -> 4) ===================================
 
     @Test
     public void printList_Right ()
@@ -87,9 +85,14 @@ public class FormatUtilsTest
         Object o3 = new Object();
 
         List<Object> objects = Arrays.asList(o1, o2, o3);
-        FormatUtils.printList(objects);
 
-        assertEquals(o1.toString() + "\n" + o2.toString() + "\n" + o3.toString(), outputStream.toString());
+        String start = "{";
+        String separator = ",";
+        String end = "}";
+
+        FormatUtils.printListFancy(objects, start, separator, end);
+
+        assertEquals(start + o1.toString() + separator + o2.toString() + separator + o3.toString() + end, outputStream.toString());
 
         clear_OutputStream();
     }
@@ -100,24 +103,55 @@ public class FormatUtilsTest
         setUp_OutputStream();
 
         ArrayList<Object> objects = new ArrayList<>();
-        FormatUtils.printList(objects);
 
-        assertEquals("", outputStream.toString());
+        String start = "{";
+        String separator = ",";
+        String end = "}";
+
+        FormatUtils.printListFancy(objects, start, separator, end);
+
+        assertEquals(start + end, outputStream.toString());
 
         clear_OutputStream();
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = NullPointerException.class)
     public void printList_Null ()
     {
-        List<Object> objectList = null;
+        List<Object> objects = null;
 
-        FormatUtils.printList(objectList);
+        String start = "{";
+        String separator = ",";
+        String end = "}";
+
+        FormatUtils.printListFancy(objects, start, separator, end);
+    }
+
+    @Test
+    public void printList_NullParams ()
+    {
+        setUp_OutputStream();
+
+        Object o1 = new Object();
+        Object o2 = new Object();
+        Object o3 = new Object();
+
+        List<Object> objects = Arrays.asList(o1, o2, o3);
+
+        String start = null;
+        String separator = null;
+        String end = null;
+
+        FormatUtils.printListFancy(objects, start, separator, end);
+
+        assertEquals(o1.toString() + o2.toString() + o3.toString(), outputStream.toString());
+
+        clear_OutputStream();
     }
 
     //endregion
 
-    //region ==================== printArray (x2) ==================================
+    //region ==================== printArray (1 -> 4) ==================================
 
     @Test
     public void printArray_Right ()
@@ -129,9 +163,14 @@ public class FormatUtilsTest
         Object o3 = new Object();
 
         Object[] objects = {o1, o2, o3};
-        FormatUtils.printArray(objects);
 
-        assertEquals(o1.toString() + "\n" + o2.toString() + "\n" + o3.toString(), outputStream.toString());
+        String start = "{";
+        String separator = ",";
+        String end = "}";
+
+        FormatUtils.printArrayFancy(objects, start, separator, end);
+
+        assertEquals(start + o1.toString() + separator + o2.toString() + separator + o3.toString() + end, outputStream.toString());
 
         clear_OutputStream();
     }
@@ -142,17 +181,51 @@ public class FormatUtilsTest
         setUp_OutputStream();
 
         Object[] objects = new Object[]{};
-        FormatUtils.printArray(objects);
 
-        assertEquals("", outputStream.toString());
+        String start = "{";
+        String separator = ",";
+        String end = "}";
+
+        FormatUtils.printArrayFancy(objects, start, separator, end);
+
+        assertEquals(start + end, outputStream.toString());
 
         clear_OutputStream();
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = NullPointerException.class)
     public void printArray_Null ()
     {
-        FormatUtils.printArray((Object[]) null);
+        Object[] objects = null;
+
+        String start = "{";
+        String separator = ",";
+        String end = "}";
+
+        FormatUtils.printArrayFancy(objects, start, separator, end);
+    }
+
+
+    @Test
+    public void printArray_NullParams ()
+    {
+        setUp_OutputStream();
+
+        Object o1 = new Object();
+        Object o2 = new Object();
+        Object o3 = new Object();
+
+        Object[] objects = {o1, o2, o3};
+
+        String start = null;
+        String separator = null;
+        String end = null;
+
+        FormatUtils.printArrayFancy(objects, start, separator, end);
+
+        assertEquals(o1.toString() + o2.toString() + o3.toString(), outputStream.toString());
+
+        clear_OutputStream();
     }
 
     //endregion

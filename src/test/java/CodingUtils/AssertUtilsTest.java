@@ -1,6 +1,5 @@
 package CodingUtils;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.*;
@@ -10,7 +9,7 @@ import java.util.*;
  .
  . The AssertUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 13/10/17 16:13
+ . Last Modified : 02/12/17 00:31
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -23,7 +22,7 @@ public class AssertUtilsTest
     private List<Object>        objectList;
     private Map<Object, Object> objectMap;
 
-    //region ==================== assert not null (2 -> 5) ==============================
+    //region ==================== assert not null (2 -> 5) =============================
 
     //region ========== using 1 parameter ============
     @Test
@@ -34,7 +33,7 @@ public class AssertUtilsTest
         AssertUtils.assertNotNull(o);
     }
 
-    @Test (expected = IllegalArgumentException.class)
+    @Test (expected = NullPointerException.class)
     public void assertNotNull_1Param_Null ()
     {
         Object o = null;
@@ -44,97 +43,74 @@ public class AssertUtilsTest
 
     //region ========== using n parameters ===========
     @Test
-    public void assertNotNull_2Param_Right ()
+    public void assertNotNull_nParam_Right ()
     {
-        Object o1 = new Object();
-        Object o2 = new Object();
-        Object o3 = new Object();
+        int maxIndex = new Random().nextInt(200);
+        Object[] objects = new Object[maxIndex];
 
-        AssertUtils.assertNotNull(o1, o2, o3);
+        for (int i = 0; i < maxIndex; i++)
+        {
+            objects[i] = new Object();
+        }
+
+        AssertUtils.assertNotNull(objects);
     }
 
-    @Test
-    public void assertNotNull_2Param_OneIsNull ()
+    @Test (expected = NullPointerException.class)
+    public void assertNotNull_nParam_OneIsNull ()
     {
-        try
+        int maxIndex = new Random().nextInt(200);
+        Object[] objects = new Object[maxIndex];
+
+        for (int i = 0; i < maxIndex; i++)
         {
-            AssertUtils.assertNotNull(new Object(), null, new Object());
-            Assert.fail("IllegalArgumentException wasn't thrown...");
+            objects[i] = new Object();
         }
-        catch (IllegalArgumentException iae)
-        {
-            Assert.assertEquals("Object at index 1 is null", iae.getMessage());
-        }
+
+        int randIndex = new Random().nextInt(maxIndex);
+        objects[randIndex] = null;
+
+        AssertUtils.assertNotNull(objects);
     }
 
-    @Test
-    public void assertNotNull_2Param_ListNull ()
+    @Test (expected = NullPointerException.class)
+    public void assertNotNull_nParam_ListNull ()
     {
-        try
-        {
-            AssertUtils.assertNotNull((Object[]) null);
-            Assert.fail("IllegalArgumentException wasn't thrown...");
-        }
-        catch (IllegalArgumentException iae)
-        {
-            Assert.assertEquals("List of Objects is null", iae.getMessage());
-        }
+        Object[] objects = null;
+        AssertUtils.assertNotNull(objects);
     }
     //endregion
 
     //endregion
 
-    //region ==================== assert not empty (6 -> 18) ============================
+    //region ==================== assert not empty (3 -> 9) ============================
 
-    //region ========== String -> 1 param ============
+    //region ========== String ==========
     @Test
-    public void assertNotEmpty_AnonymousString_Right ()
+    public void assertNotEmpty_String_Right ()
     {
         string = "This String is not empty nor null";
         AssertUtils.assertNotEmpty(string);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_AnonymousString_Empty ()
+    public void assertNotEmpty_String_Empty ()
     {
         string = "";
         AssertUtils.assertNotEmpty(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_AnonymousString_Null ()
+    @Test (expected = NullPointerException.class)
+    public void assertNotEmpty_String_Null ()
     {
         string = null;
         AssertUtils.assertNotEmpty(string);
     }
     //endregion
 
-    //region ========== String -> 2 params ===========
+    //region ========== List ============
     @Test
-    public void assertNotEmpty_NamedString_Right ()
-    {
-        string = "This String is not empty nor null";
-        AssertUtils.assertNotEmpty(string, "TestString");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_NamedString_Empty ()
-    {
-        string = "";
-        AssertUtils.assertNotEmpty(string, "TestString");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_NamedString_Null ()
-    {
-        string = null;
-        AssertUtils.assertNotEmpty(string, "TestString");
-    }
-    //endregion
-
-    //region ========== List -> 1 param ==============
-    @Test
-    public void assertNotEmpty_AnonymousList_Right ()
+    public void assertNotEmpty_List_Right ()
     {
         objectList = Arrays.asList(new Object(), new Object(), new Object());
 
@@ -142,15 +118,15 @@ public class AssertUtilsTest
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_AnonymousList_Empty ()
+    public void assertNotEmpty_List_Empty ()
     {
         objectList = Collections.emptyList();
 
         AssertUtils.assertNotEmpty(objectList);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_AnonymousList_Null ()
+    @Test (expected = NullPointerException.class)
+    public void assertNotEmpty_List_Null ()
     {
         objectList = null;
 
@@ -158,35 +134,9 @@ public class AssertUtilsTest
     }
     //endregion
 
-    //region ========== List -> 2 params =============
+    //region ========== Map =============
     @Test
-    public void assertNotEmpty_NamedList_Right ()
-    {
-        objectList = Arrays.asList(new Object(), new Object(), new Object());
-
-        AssertUtils.assertNotEmpty(objectList, "TestingList");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_NamedList_Empty ()
-    {
-        objectList = Collections.emptyList();
-
-        AssertUtils.assertNotEmpty(objectList, "TestingList");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_NamedList_Null ()
-    {
-        objectList = null;
-
-        AssertUtils.assertNotEmpty(objectList, "TestingList");
-    }
-    //endregion
-
-    //region ========== Map -> 1 param ===============
-    @Test
-    public void assertNotEmpty_AnonymousMap_Right ()
+    public void assertNotEmpty_Map_Right ()
     {
         objectMap = new HashMap<>();
         objectMap.put(new Object(), new Object());
@@ -197,15 +147,15 @@ public class AssertUtilsTest
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_AnonymousMap_Empty ()
+    public void assertNotEmpty_Map_Empty ()
     {
         objectMap = new HashMap<>();
 
         AssertUtils.assertNotEmpty(objectMap);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_AnonymousMap_Null ()
+    @Test (expected = NullPointerException.class)
+    public void assertNotEmpty_Map_Null ()
     {
         objectMap = null;
 
@@ -213,190 +163,49 @@ public class AssertUtilsTest
     }
     //endregion
 
-    //region ========== Map -> 2 params ==============
-    @Test
-    public void assertNotEmpty_NamedMap_Right ()
-    {
-        objectMap = new HashMap<>();
-        objectMap.put(new Object(), new Object());
-        objectMap.put(new Object(), new Object());
-        objectMap.put(new Object(), new Object());
-
-        AssertUtils.assertNotEmpty(objectMap, "TestingList");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_NamedMap_Empty ()
-    {
-        objectMap = new HashMap<>();
-
-        AssertUtils.assertNotEmpty(objectMap, "TestingList");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertNotEmpty_NamedMap_Null ()
-    {
-        objectMap = null;
-
-        AssertUtils.assertNotEmpty(objectMap, "TestingList");
-    }
     //endregion
 
-    //endregion
+    //region ==================== assert strictly positive (1 -> 3) ====================
 
-    //region ==================== assert strictly positive (4 -> 12) ====================
-
-    //region ========== int -> 1 param ===============
     @Test
-    public void assertStrictlyPositive_AnonymInt_Right ()
+    public void assertStrictlyPositive_Right ()
     {
         for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a positive number
-            int value = Math.abs(random.nextInt()) + 1;
+            double value = Math.abs(random.nextDouble() + random.nextInt()) + 1;
             AssertUtils.assertStrictlyPositive(value);
         }
 
         AssertUtils.assertStrictlyPositive(1);
+        AssertUtils.assertStrictlyPositive(Double.MAX_VALUE);
         AssertUtils.assertStrictlyPositive(Integer.MAX_VALUE);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertStrictlyPositive_AnonymInt_Zero ()
-    {
-        int val = 0;
-
-        AssertUtils.assertStrictlyPositive(val);
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertStrictlyPositive_AnonymInt_Negative ()
-    {
-        for (int i = 0; i < 5000; i++)
-        {
-            //Making sure we have a negative number
-            int value = -Math.abs(random.nextInt()) - 1;
-            AssertUtils.assertStrictlyPositive(value);
-        }
-
-        AssertUtils.assertStrictlyPositive(-1);
-        AssertUtils.assertStrictlyPositive(Integer.MIN_VALUE);
-    }
-    //endregion
-
-    //region ========== int -> 2 params ==============
-    @Test
-    public void assertStrictlyPositive_NamesInt_Right ()
-    {
-        for (int i = 0; i < 5000; i++)
-        {
-            //Making sure we have a positive number
-            int value = Math.abs(random.nextInt()) + 1;
-            AssertUtils.assertStrictlyPositive(value, "TestValue");
-        }
-
-        AssertUtils.assertStrictlyPositive(1, "TestValue");
-        AssertUtils.assertStrictlyPositive(Integer.MAX_VALUE, "TestValue");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertStrictlyPositive_NamedInt_Zero ()
-    {
-        int val = 0;
-
-        AssertUtils.assertStrictlyPositive(val, "TestValue");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertStrictlyPositive_NamedInt_Negative ()
-    {
-        for (int i = 0; i < 5000; i++)
-        {
-            //Making sure we have a negative number
-            int value = -Math.abs(random.nextInt()) - 1;
-            AssertUtils.assertStrictlyPositive(value, "TestValue");
-        }
-
-        AssertUtils.assertStrictlyPositive(-1, "TestValue");
-        AssertUtils.assertStrictlyPositive(Integer.MIN_VALUE, "TestValue");
-    }
-    //endregion
-
-    //region ========== float -> 1 param =============
-    @Test
-    public void assertStrictlyPositive_AnonymFloat_Right ()
-    {
-        for (int i = 0; i < 5000; i++)
-        {
-            //Making sure we have a positive number
-            float value = Math.abs(random.nextFloat()) + 1;
-            AssertUtils.assertStrictlyPositive(value);
-        }
-
-        AssertUtils.assertStrictlyPositive(1f);
         AssertUtils.assertStrictlyPositive(Float.MAX_VALUE);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void assertStrictlyPositive_AnonymFloat_Zero ()
+    public void assertStrictlyPositive_Zero ()
     {
-        float val = 0;
+        double val = 0;
 
         AssertUtils.assertStrictlyPositive(val);
     }
 
     @Test (expected = IllegalArgumentException.class)
-    public void assertStrictlyPositive_AnonymFloat_Negative ()
-    {
-        for (int i = 0; i < 5000; i++)
-        {
-            //Making sure we have a negative number
-            float value = -Math.abs(random.nextFloat()) - 1;
-            AssertUtils.assertStrictlyPositive(value);
-        }
-
-        AssertUtils.assertStrictlyPositive(-1f);
-        AssertUtils.assertStrictlyPositive(Float.MIN_VALUE);
-    }
-    //endregion
-
-    //region ========== float -> 2 params ============
-    @Test
-    public void assertStrictlyPositive_NamedFloat_Right ()
+    public void assertStrictlyPositive_Negative ()
     {
         for (int i = 0; i < 5000; i++)
         {
             //Making sure we have a positive number
-            float value = Math.abs(random.nextFloat()) + 1;
-            AssertUtils.assertStrictlyPositive(value, "TestValue");
+            double value = Math.abs(random.nextDouble() + random.nextInt()) - 1;
+            AssertUtils.assertStrictlyPositive(value);
         }
 
-        AssertUtils.assertStrictlyPositive(1f, "TestValue");
-        AssertUtils.assertStrictlyPositive(Float.MAX_VALUE, "TestValue");
+        AssertUtils.assertStrictlyPositive(-1);
+        AssertUtils.assertStrictlyPositive(Double.MIN_VALUE);
+        AssertUtils.assertStrictlyPositive(Integer.MIN_VALUE);
+        AssertUtils.assertStrictlyPositive(Float.MIN_VALUE);
     }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertStrictlyPositive_NamedFloat_Zero ()
-    {
-        float val = 0;
-
-        AssertUtils.assertStrictlyPositive(val, "TestValue");
-    }
-
-    @Test (expected = IllegalArgumentException.class)
-    public void assertStrictlyPositive_NamedFloat_Negative ()
-    {
-        for (int i = 0; i < 5000; i++)
-        {
-            //Making sure we have a negative number
-            float value = -Math.abs(random.nextFloat()) - 1;
-            AssertUtils.assertStrictlyPositive(value, "TestValue");
-        }
-
-        AssertUtils.assertStrictlyPositive(-1f, "TestValue");
-        AssertUtils.assertStrictlyPositive(Float.MIN_VALUE, "TestValue");
-    }
-    //endregion
 
     //endregion
 }
