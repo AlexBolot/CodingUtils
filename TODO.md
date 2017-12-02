@@ -1,7 +1,10 @@
 <h1> TODOLIST </h1>
 
-- [X] Add JavaDoc
-- [X] Write README.md
+- [X] Add JavaDoc    
 - [X] Add UnitTesting
-    - [ ] Add Testing for NumberUtils and ArrayList8
-- [ ] Add more classes and methods
+- [X] Write README.md
+
+<hr>
+
+- [ ] Add Testing for NumberUtils and ArrayList8
+- [ ] Complete JavaDoc for new methods
