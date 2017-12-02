@@ -9,7 +9,7 @@ import java.util.Objects;
  .
  . The NumberUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 02/12/17 00:31
+ . Last Modified : 02/12/17 01:03
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -219,14 +219,14 @@ public class NumberUtils
     //endregion
 
     //region ============ min (x7) ===================
-    public static int min (int[] tab)
+    public static int min (int[] array)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
-        if (tab.length == 1) return tab[0];
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 1) return array[0];
 
         int min = Integer.MAX_VALUE;
 
-        for (int i : tab)
+        for (int i : array)
         {
             if (i < min) min = i;
         }
@@ -234,14 +234,14 @@ public class NumberUtils
         return min;
     }
 
-    public static float min (float[] tab)
+    public static float min (float[] array)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
-        if (tab.length == 1) return tab[0];
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 1) return array[0];
 
         float min = Float.MAX_VALUE;
 
-        for (Float i : tab)
+        for (Float i : array)
         {
             if (i < min) min = i;
         }
@@ -249,14 +249,14 @@ public class NumberUtils
         return min;
     }
 
-    public static double min (double[] tab)
+    public static double min (double[] array)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
-        if (tab.length == 1) return tab[0];
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 1) return array[0];
 
         double min = Double.MAX_VALUE;
 
-        for (double i : tab)
+        for (double i : array)
         {
             if (i < min) min = i;
         }
@@ -264,14 +264,14 @@ public class NumberUtils
         return min;
     }
 
-    public static <T> T min (T[] tab, Comparator<T> comparator)
+    public static <T> T min (T[] array, Comparator<T> comparator)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
-        if (tab.length == 1) return tab[0];
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 1) return array[0];
 
-        T min = tab[0];
+        T min = array[0];
 
-        for (T t : tab)
+        for (T t : array)
         {
             if (comparator.compare(t, min) < 0) min = t;
         }
@@ -294,14 +294,14 @@ public class NumberUtils
         return min;
     }
 
-    public static <T extends Comparable<T>> T min (T[] tab)
+    public static <T extends Comparable<T>> T min (T[] array)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
-        if (tab.length == 1) return tab[0];
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 1) return array[0];
 
-        T min = tab[0];
+        T min = array[0];
 
-        for (T t : tab)
+        for (T t : array)
         {
             if (t.compareTo(min) < 0) min = t;
         }
@@ -326,13 +326,13 @@ public class NumberUtils
     //endregion
 
     //region ============ max (x7) ===================
-    public static int max (int[] tab)
+    public static int max (int[] array)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
 
         int max = Integer.MIN_VALUE;
 
-        for (int i : tab)
+        for (int i : array)
         {
             if (i > max) max = i;
         }
@@ -340,13 +340,13 @@ public class NumberUtils
         return max;
     }
 
-    public static float max (float[] tab)
+    public static float max (float[] array)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
 
         float max = Integer.MIN_VALUE;
 
-        for (float i : tab)
+        for (float i : array)
         {
             if (i > max) max = i;
         }
@@ -354,13 +354,13 @@ public class NumberUtils
         return max;
     }
 
-    public static double max (double[] tab)
+    public static double max (double[] array)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
 
         double max = Integer.MIN_VALUE;
 
-        for (double i : tab)
+        for (double i : array)
         {
             if (i > max) max = i;
         }
@@ -368,14 +368,14 @@ public class NumberUtils
         return max;
     }
 
-    public static <T> T max (T[] tab, Comparator<T> comparator)
+    public static <T> T max (T[] array, Comparator<T> comparator)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
-        if (tab.length == 1) return tab[0];
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 1) return array[0];
 
-        T max = tab[0];
+        T max = array[0];
 
-        for (T t : tab)
+        for (T t : array)
         {
             if (comparator.compare(t, max) > 0) max = t;
         }
@@ -398,14 +398,14 @@ public class NumberUtils
         return max;
     }
 
-    public static <T extends Comparable<T>> T max (T[] tab)
+    public static <T extends Comparable<T>> T max (T[] array)
     {
-        if (tab.length == 0) throw new IllegalArgumentException("Array is empty");
-        if (tab.length == 1) return tab[0];
+        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
+        if (array.length == 1) return array[0];
 
-        T max = tab[0];
+        T max = array[0];
 
-        for (T t : tab)
+        for (T t : array)
         {
             if (t.compareTo(max) > 0) max = t;
         }
