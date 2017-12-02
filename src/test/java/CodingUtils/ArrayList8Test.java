@@ -7,13 +7,18 @@ import org.junit.Test;
  .
  . The ArrayList8Test	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 30/11/17 14:11
+ . Last Modified : 02/12/17 13:16
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
 public class ArrayList8Test
 {
+    @Test
+    public void contains () throws Exception
+    {
+    }
+
     @Test
     public void getRandom () throws Exception
     {

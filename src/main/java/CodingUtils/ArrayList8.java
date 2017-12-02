@@ -8,7 +8,7 @@ import java.util.function.Predicate;
  .
  . The ArrayList8	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 01/12/17 17:04
+ . Last Modified : 02/12/17 13:16
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -44,6 +44,16 @@ public class ArrayList8<E> extends ArrayList<E>
         }
 
         return true;
+    }
+
+    public boolean contains (Predicate<? super E> filter)
+    {
+        for (E e : this)
+        {
+            if (filter.test(e)) return true;
+        }
+
+        return false;
     }
 
     public int countIf (Predicate<? super E> filter)
