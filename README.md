@@ -45,6 +45,8 @@ public void assertStrictlyPositive (double value)
 
 <h3>3. FormatUtils</h3>
 
+This class contains methods used to format test or print with special format.
+
 <b>Exemple :</b>
 ```
 public String toFirstUpperCase (String string)
