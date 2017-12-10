@@ -9,7 +9,7 @@ import java.util.Objects;
  .
  . The NumberUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 02/12/17 01:03
+ . Last Modified : 10/12/17 23:03
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -172,7 +172,7 @@ public class NumberUtils
     {
         if (maxBound < minBound) throw new IllegalArgumentException("maxBound < minBound");
 
-        return minBound < value && value > maxBound;
+        return minBound < value && value < maxBound;
     }
 
     /**
@@ -190,10 +190,11 @@ public class NumberUtils
         Objects.requireNonNull(value, "value is null");
         Objects.requireNonNull(minBound, "minBound is null");
         Objects.requireNonNull(maxBound, "maxBound is null");
+        Objects.requireNonNull(comparator, "comparator is null");
 
         if (comparator.compare(maxBound, minBound) < 0) throw new IllegalArgumentException("maxBound < minBound");
 
-        return comparator.compare(value, minBound) > 0 && comparator.compare(value, maxBound) < 0;
+        return comparator.compare(minBound, value) < 0 && comparator.compare(value, maxBound) < 0;
     }
 
     /**
@@ -214,43 +215,15 @@ public class NumberUtils
 
         if (maxBound.compareTo(minBound) < 0) throw new IllegalArgumentException("maxBound < minBound");
 
-        return value.compareTo(minBound) > 0 && value.compareTo(maxBound) < 0;
+        return minBound.compareTo(value) < 0 && value.compareTo(maxBound) < 0;
     }
     //endregion
 
-    //region ============ min (x7) ===================
-    public static int min (int[] array)
-    {
-        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-        if (array.length == 1) return array[0];
-
-        int min = Integer.MAX_VALUE;
-
-        for (int i : array)
-        {
-            if (i < min) min = i;
-        }
-
-        return min;
-    }
-
-    public static float min (float[] array)
-    {
-        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-        if (array.length == 1) return array[0];
-
-        float min = Float.MAX_VALUE;
-
-        for (Float i : array)
-        {
-            if (i < min) min = i;
-        }
-
-        return min;
-    }
-
+    //region ============ min (x5) ===================
     public static double min (double[] array)
     {
+        Objects.requireNonNull(array);
+
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");
         if (array.length == 1) return array[0];
 
@@ -266,6 +239,8 @@ public class NumberUtils
 
     public static <T> T min (T[] array, Comparator<T> comparator)
     {
+        Objects.requireNonNull(array);
+
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");
         if (array.length == 1) return array[0];
 
@@ -281,6 +256,8 @@ public class NumberUtils
 
     public static <T> T min (Collection<T> collection, Comparator<T> comparator)
     {
+        Objects.requireNonNull(collection);
+
         if (collection.size() == 0) throw new IllegalArgumentException("Collection is empty");
         if (collection.size() == 1) return (T) collection.toArray()[0];
 
@@ -296,6 +273,8 @@ public class NumberUtils
 
     public static <T extends Comparable<T>> T min (T[] array)
     {
+        Objects.requireNonNull(array);
+
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");
         if (array.length == 1) return array[0];
 
@@ -311,6 +290,8 @@ public class NumberUtils
 
     public static <T extends Comparable<T>> T min (Collection<T> collection)
     {
+        Objects.requireNonNull(collection);
+
         if (collection.size() == 0) throw new IllegalArgumentException("Collection is empty");
         if (collection.size() == 1) return (T) collection.toArray()[0];
 
@@ -325,35 +306,7 @@ public class NumberUtils
     }
     //endregion
 
-    //region ============ max (x7) ===================
-    public static int max (int[] array)
-    {
-        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-
-        int max = Integer.MIN_VALUE;
-
-        for (int i : array)
-        {
-            if (i > max) max = i;
-        }
-
-        return max;
-    }
-
-    public static float max (float[] array)
-    {
-        if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-
-        float max = Integer.MIN_VALUE;
-
-        for (float i : array)
-        {
-            if (i > max) max = i;
-        }
-
-        return max;
-    }
-
+    //region ============ max (x5) ===================
     public static double max (double[] array)
     {
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");

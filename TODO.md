@@ -6,5 +6,6 @@
 
 <hr>
 
-- [ ] Add Testing for NumberUtils and ArrayList8
+- [X] Add Testing for NumberUtils
+- [ ] Add Testing for ArrayList8
 - [ ] Complete JavaDoc for new methods
