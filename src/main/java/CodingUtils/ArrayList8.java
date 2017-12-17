@@ -8,7 +8,7 @@ import java.util.function.Predicate;
  .
  . The ArrayList8	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 02/12/17 13:16
+ . Last Modified : 17/12/17 22:47
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -36,18 +36,25 @@ public class ArrayList8<E> extends ArrayList<E>
         return filter.test(value) && add(value);
     }
 
-    public boolean addAllIf (Collection<? extends E> c, Predicate<? super E> filter)
+    public int addAllIf (Collection<? extends E> collection, Predicate<? super E> filter)
     {
-        for (E e : c)
-        {
-            if (!addIf(e, filter)) return false;
-        }
+        Objects.requireNonNull(collection);
+        Objects.requireNonNull(filter);
 
-        return true;
+        ArrayList8<E> paramList = new ArrayList8<>();
+        paramList.addAll(collection);
+
+        ArrayList8<E> sublist = paramList.subList(filter);
+
+        this.addAll(sublist);
+
+        return sublist.size();
     }
 
     public boolean contains (Predicate<? super E> filter)
     {
+        Objects.requireNonNull(filter);
+
         for (E e : this)
         {
             if (filter.test(e)) return true;
@@ -58,6 +65,8 @@ public class ArrayList8<E> extends ArrayList<E>
 
     public int countIf (Predicate<? super E> filter)
     {
+        Objects.requireNonNull(filter);
+
         int count = 0;
 
         for (E e : this)
@@ -70,22 +79,26 @@ public class ArrayList8<E> extends ArrayList<E>
 
     public ArrayList8<E> subList (Predicate<? super E> filter)
     {
-        if (this.isEmpty()) return this;
+        Objects.requireNonNull(filter);
 
         ArrayList8<E> newList = new ArrayList8<>();
 
-        newList.addAllIf(this, filter);
+        this.forEach(e -> newList.addIf(e, filter));
 
         return newList;
     }
 
     public Optional<E> findAny (Predicate<? super E> filter)
     {
+        Objects.requireNonNull(filter);
+
         return this.isEmpty() ? Optional.empty() : subList(filter).stream().findAny();
     }
 
     public Optional<E> findFirst (Predicate<? super E> filter)
     {
+        Objects.requireNonNull(filter);
+
         for (E e : this)
         {
             if (filter.test(e)) return Optional.of(e);
@@ -96,13 +109,15 @@ public class ArrayList8<E> extends ArrayList<E>
 
     public Optional<E> max (Comparator<? super E> comparator)
     {
+        Objects.requireNonNull(comparator);
+
         if (this.isEmpty()) return Optional.empty();
 
         E max = this.getRandom();
 
         for (E e : this)
         {
-            if (comparator.compare(max, e) > 0) max = e;
+            if (comparator.compare(e, max) > 0) max = e;
         }
 
         return Optional.of(max);
@@ -110,13 +125,15 @@ public class ArrayList8<E> extends ArrayList<E>
 
     public Optional<E> min (Comparator<? super E> comparator)
     {
+        Objects.requireNonNull(comparator);
+
         if (this.isEmpty()) return Optional.empty();
 
         E min = this.get(0);
 
         for (E e : this)
         {
-            if (comparator.compare(min, e) < 0) min = e;
+            if (comparator.compare(e, min) < 0) min = e;
         }
 
         return Optional.of(min);
