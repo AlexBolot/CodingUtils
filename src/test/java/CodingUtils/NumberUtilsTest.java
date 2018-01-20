@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  .
  . The NumberUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 10/12/17 23:35
+ . Last Modified : 20/01/18 01:08
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -23,6 +23,7 @@ import static org.junit.Assert.*;
 @SuppressWarnings ({"ConstantConditions", "ResultOfMethodCallIgnored"})
 public class NumberUtilsTest
 {
+    //region --------------- Attributes -------------------------
     private String string;
     private double delta = 0.001;
 
@@ -41,7 +42,10 @@ public class NumberUtilsTest
 
     private NotComparable MIN_NOT_COMPARABLE = new NotComparable(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
     private NotComparable MAX_NOT_COMPARABLE = new NotComparable(Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE);
+    //endregion
 
+    //region --------------- Private Methods --------------------
+    @NotNull
     private Comparable randComparable ()
     {
         int valDay = ThreadLocalRandom.current().nextInt();
@@ -51,6 +55,7 @@ public class NumberUtilsTest
         return new Comparable(valDay, valMonth, valYear);
     }
 
+    @NotNull
     private NotComparable randNotComparable ()
     {
         int valDay = ThreadLocalRandom.current().nextInt();
@@ -59,10 +64,11 @@ public class NumberUtilsTest
 
         return new NotComparable(valDay, valMonth, valYear);
     }
+    //endregion
 
-    //region ==================== isParseable (3 -> 12) ====================
+    //region --------------- isParseable (x3 x12) ---------------
 
-    //region ========== isInteger ==========
+    //region ---------- isInteger ---------------------------
     @Test
     public void isInteger_Right ()
     {
@@ -100,7 +106,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== isFloat ============
+    //region ---------- isFloat -----------------------------
     @Test
     public void isFloat_Right ()
     {
@@ -138,7 +144,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== isDouble ===========
+    //region ---------- isDouble ----------------------------
     @Test
     public void isDouble_Right ()
     {
@@ -178,9 +184,9 @@ public class NumberUtilsTest
 
     //endregion
 
-    //region ==================== tryParse (3 -> 12) =======================
+    //region --------------- tryParse (x3 x12) ------------------
 
-    //region ========== tryParseInt =============
+    //region ---------- tryParseInt -------------------------
     @Test
     public void tryParseInt_Right ()
     {
@@ -214,7 +220,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== tryParseFloat ===========
+    //region ---------- tryParseFloat -----------------------
     @Test
     public void tryParseFloat_Right ()
     {
@@ -248,7 +254,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== tryParseDouble ==========
+    //region ---------- tryParseDouble ----------------------
     @Test
     public void tryParseDouble_Right ()
     {
@@ -284,9 +290,9 @@ public class NumberUtilsTest
 
     //endregion
 
-    //region ==================== isInBounds (3 -> 12) =====================
+    //region --------------- isInBounds (x3 x12) ----------------
 
-    //region ========== isInBoundsDouble =================
+    //region ---------- isInBoundsDouble --------------------
     @Test
     public void isInBound_Double_Right ()
     {
@@ -313,7 +319,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== isInBoundsNotComparable ==========
+    //region ---------- isInBoundsNotComparable -------------
     @Test
     public void isInBound_NotComparable_Right ()
     {
@@ -414,7 +420,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== isInBoundsComparable =============
+    //region ---------- isInBoundsComparable ----------------
     @Test
     public void isInBound_Comparable_Right ()
     {
@@ -507,9 +513,9 @@ public class NumberUtilsTest
 
     //endregion
 
-    //region ==================== min (5 -> 15) ============================
+    //region --------------- min (x5 x15) -----------------------
 
-    //region ========== minArrayDouble ======================
+    //region ---------- minArrayDouble ----------------------
     @Test
     public void min_Array_Double_Right ()
     {
@@ -546,7 +552,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== minArrayNotComparable ===============
+    //region ---------- minArrayNotComparable ---------------
     @Test
     public void min_Array_NotComparable_Right ()
     {
@@ -584,7 +590,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== minArrayComparable ==================
+    //region ---------- minArrayComparable ------------------
     @Test
     public void min_Array_Comparable_Right ()
     {
@@ -622,7 +628,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== minCollectionNotComparable ==========
+    //region ---------- minCollectionNotComparable ----------
     @Test
     public void min_Collection_NotComparable_Right ()
     {
@@ -660,7 +666,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== minCollectionComparable =============
+    //region ---------- minCollectionComparable -------------
     @Test
     public void min_Collection_Comparable_Right ()
     {
@@ -700,9 +706,9 @@ public class NumberUtilsTest
 
     //endregion
 
-    //region ==================== max (5 -> 15) ============================
+    //region --------------- max (x5 x15) -----------------------
 
-    //region ========== maxArrayDouble ======================
+    //region ---------- maxArrayDouble ----------------------
     @Test
     public void max_Array_Double_Right ()
     {
@@ -739,7 +745,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== maxArrayNotComparable ===============
+    //region ---------- maxArrayNotComparable ---------------
     @Test
     public void max_Array_NotComparable_Right ()
     {
@@ -777,7 +783,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== maxArrayComparable ==================
+    //region ---------- maxArrayComparable ------------------
     @Test
     public void max_Array_Comparable_Right ()
     {
@@ -815,7 +821,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== maxCollectionNotComparable ==========
+    //region ---------- maxCollectionNotComparable ----------
     @Test
     public void max_Collection_NotComparable_Right ()
     {
@@ -853,7 +859,7 @@ public class NumberUtilsTest
     }
     //endregion
 
-    //region ========== maxCollectionComparable =============
+    //region ---------- maxCollectionComparable -------------
     @Test
     public void max_Collection_Comparable_Right ()
     {
@@ -893,7 +899,7 @@ public class NumberUtilsTest
 
     //endregion
 
-    //region ==================== Private classes ==========================
+    //region --------------- Private classes --------------------
     private class NotComparable
     {
         int val1;

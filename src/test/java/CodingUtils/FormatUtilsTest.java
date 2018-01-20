@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  .
  . The FormatUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 02/12/17 00:09
+ . Last Modified : 20/01/18 01:08
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -23,9 +23,12 @@ import static org.junit.Assert.assertEquals;
 @SuppressWarnings ("ConstantConditions")
 public class FormatUtilsTest
 {
+    //region --------------- Attributes --------------------------
     private String string;
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    //endregion
 
+    //region --------------- SetUp - TearDown --------------------
     private void setUp_OutputStream ()
     {
         System.setOut(new PrintStream(outputStream));
@@ -35,8 +38,9 @@ public class FormatUtilsTest
     {
         System.setOut(null);
     }
+    //endregion
 
-    //region ==================== toFirstUpperCase (1 -> 2) ============================
+    //region --------------- toFirstUpperCase (x2) ---------------
 
     @Test
     public void toFirstUpperCase_Right ()
@@ -73,7 +77,7 @@ public class FormatUtilsTest
 
     //endregion
 
-    //region ==================== printList (1 -> 4) ===================================
+    //region --------------- printList (x4) ----------------------
 
     @Test
     public void printList_Right ()
@@ -151,7 +155,7 @@ public class FormatUtilsTest
 
     //endregion
 
-    //region ==================== printArray (1 -> 4) ==================================
+    //region --------------- printArray (x4) ---------------------
 
     @Test
     public void printArray_Right ()

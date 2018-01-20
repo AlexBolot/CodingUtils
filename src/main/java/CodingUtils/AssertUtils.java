@@ -1,30 +1,30 @@
 package CodingUtils;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Objects;
 
 /*................................................................................................................................
  . Copyright (c)
  .
  . The AssertUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 01/12/17 23:50
+ . Last Modified : 20/01/18 00:24
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
-@SuppressWarnings ({"WeakerAccess", "unused"})
+@SuppressWarnings ({"WeakerAccess", "unused", "ConstantConditions"})
 public class AssertUtils
 {
-    //region ==================== assert not null (x2) =============================
+    //region --------------- assert not null (x2) ------------------------
 
     /**
      <hr>
      <h2>Tests if the parameters are null</h2>
-     <h3>If one of them is —> throws NullPointerException, with index of first null object as message.</h3>
+     <h3>If one of them is —> throws IllegalArgumentException, with index of first null object as message.</h3>
      <br>
      Note : asserts [array] isn't null.<br>
      <br>
@@ -32,21 +32,22 @@ public class AssertUtils
 
      @param array Array of T objects to test for null value
      */
+    @Contract ("null -> fail")
     @SafeVarargs
     public static <T> void assertNotNull (T... array)
     {
-        Objects.requireNonNull(array, "List of Objects is null");
+        if (array == null) throw new IllegalArgumentException("List of Objects is null");
 
         for (int i = 0; i < array.length; i++)
         {
-            Objects.requireNonNull(array[i], "Element at index " + i + " is null");
+            if (array[i] == null) throw new IllegalArgumentException("Element at index " + i + " is null");
         }
     }
 
     /**
      <hr>
      <h2>Tests if param is null</h2>
-     <h3>If it is —> throws NullPointerException<br></h3>
+     <h3>If it is —> throws IllegalArgumentException<br></h3>
      <hr>
 
      @param t The ‹T› object to test for null value
@@ -54,11 +55,11 @@ public class AssertUtils
     @Contract ("null-> fail")
     public static <T> void assertNotNull (T t)
     {
-        Objects.requireNonNull(t, "Param is null");
+        if (t == null) throw new IllegalArgumentException("Param is null");
     }
     //endregion
 
-    //region ==================== assert not empty (x3) ============================
+    //region --------------- assert not empty (x3) -----------------------
 
     /**
      <hr>
@@ -70,9 +71,9 @@ public class AssertUtils
 
      @param string The String to test for empty value
      */
-    public static void assertNotEmpty (String string)
+    public static void assertNotEmpty (@NotNull String string)
     {
-        Objects.requireNonNull(string, "String is null");
+        if (string == null) throw new IllegalArgumentException("String is null");
         if (string.isEmpty()) throw new IllegalArgumentException("String is empty");
     }
 
@@ -84,11 +85,11 @@ public class AssertUtils
      <br>
      <hr>
 
-     @param list The List to test for empty value
+     @param collection The List to test for empty value
      */
-    public static void assertNotEmpty (Collection collection)
+    public static void assertNotEmpty (@NotNull Collection collection)
     {
-        Objects.requireNonNull(collection, "Collection is null");
+        if (collection == null) throw new IllegalArgumentException("Collection is null");
         if (collection.isEmpty()) throw new IllegalArgumentException("List is empty");
     }
 
@@ -102,14 +103,14 @@ public class AssertUtils
 
      @param map The Map to test for empty value
      */
-    public static void assertNotEmpty (Map map)
+    public static void assertNotEmpty (@NotNull Map map)
     {
-        Objects.requireNonNull(map, "Map is null");
+        if (map == null) throw new IllegalArgumentException("Map is null");
         if (map.isEmpty()) throw new IllegalArgumentException("Map is empty");
     }
     //endregion
 
-    //region ==================== assert strictly positive (x1) ====================
+    //region --------------- assert strictly positive (x1) ---------------
 
     /**
      <hr>

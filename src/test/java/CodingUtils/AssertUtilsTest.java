@@ -9,7 +9,7 @@ import java.util.*;
  .
  . The AssertUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 02/12/17 00:31
+ . Last Modified : 20/01/18 00:56
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -17,14 +17,15 @@ import java.util.*;
 @SuppressWarnings ("ConstantConditions")
 public class AssertUtilsTest
 {
+    //region --------------- Attributes -------------------------------------
     private Random random = new Random();
     private String              string;
     private List<Object>        objectList;
     private Map<Object, Object> objectMap;
 
-    //region ==================== assert not null (2 -> 5) =============================
+    //region --------------- assert not null (x2 x5) ------------------------
 
-    //region ========== using 1 parameter ============
+    //region ---------- using 1 parameter -----------
     @Test
     public void assertNotNull_1Param_Right ()
     {
@@ -41,7 +42,7 @@ public class AssertUtilsTest
     }
     //endregion
 
-    //region ========== using n parameters ===========
+    //region ---------- using n parameters ----------
     @Test
     public void assertNotNull_nParam_Right ()
     {
@@ -83,9 +84,9 @@ public class AssertUtilsTest
 
     //endregion
 
-    //region ==================== assert not empty (3 -> 9) ============================
+    //region --------------- assert not empty (x3 x9) -----------------------
 
-    //region ========== String ==========
+    //region ---------- String ----------------------
     @Test
     public void assertNotEmpty_String_Right ()
     {
@@ -108,7 +109,7 @@ public class AssertUtilsTest
     }
     //endregion
 
-    //region ========== List ============
+    //region ---------- List ------------------------
     @Test
     public void assertNotEmpty_List_Right ()
     {
@@ -134,7 +135,7 @@ public class AssertUtilsTest
     }
     //endregion
 
-    //region ========== Map =============
+    //region ---------- Map -------------------------
     @Test
     public void assertNotEmpty_Map_Right ()
     {
@@ -165,7 +166,7 @@ public class AssertUtilsTest
 
     //endregion
 
-    //region ==================== assert strictly positive (1 -> 3) ====================
+    //region --------------- assert strictly positive (x1 x3) ---------------
 
     @Test
     public void assertStrictlyPositive_Right ()

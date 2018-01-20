@@ -1,22 +1,25 @@
 package CodingUtils;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /*................................................................................................................................
  . Copyright (c)
  .
  . The FormatUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 02/12/17 00:11
+ . Last Modified : 20/01/18 00:30
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
-@SuppressWarnings ({"WeakerAccess", "unused"})
+@SuppressWarnings ({"WeakerAccess", "unused", "ConstantConditions"})
 public class FormatUtils
 {
+    //region --------------- toFirstUpperCase (x1) ---------------
+
     /**
      <hr>
      <h2>Formats [string] with FirstUpperCase format</h2>
@@ -27,15 +30,20 @@ public class FormatUtils
      @param string String to format
      @return A formatted version of [string]
      */
-    public static String toFirstUpperCase (String string)
+    public static String toFirstUpperCase (@NotNull String string)
     {
-        Objects.requireNonNull(string, "String param is null");
+        //region --> Check params
+        if (string == null) throw new IllegalArgumentException("String param is null");
+        //endregion
 
         if (string.isEmpty()) return string;
         if (string.length() == 1) return string.toUpperCase();
 
         return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
     }
+    //endregion
+
+    //region --------------- print fancy (x2) --------------------
 
     /**
      <hr>
@@ -46,9 +54,11 @@ public class FormatUtils
 
      @param objects List of T objects to be printed
      */
-    public static <T> void printListFancy (List<T> objects, String start, String separator, String end)
+    public static <T> void printListFancy (@NotNull List<T> objects, @NotNull String start, @NotNull String separator, @NotNull String end)
     {
-        Objects.requireNonNull(objects, "List param is null");
+        //region --> Check params
+        if (objects == null) throw new IllegalArgumentException("List param is null");
+        //endregion
 
         if (objects.isEmpty())
         {
@@ -78,9 +88,11 @@ public class FormatUtils
 
      @param objects Array of T objects to be printed
      */
-    public static <T> void printArrayFancy (T[] objects, String start, String separator, String end)
+    public static <T> void printArrayFancy (@NotNull T[] objects, @NotNull String start, @NotNull String separator, @NotNull String end)
     {
-        Objects.requireNonNull(objects, "Array param is null");
+        //region --> Check params
+        if (objects == null) throw new IllegalArgumentException("Array param is null");
+        //endregion
 
         if (objects.length == 0)
         {
@@ -100,4 +112,5 @@ public class FormatUtils
 
         System.out.print(str.toString());
     }
+    //endregion
 }
