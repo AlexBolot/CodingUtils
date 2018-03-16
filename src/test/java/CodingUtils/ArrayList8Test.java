@@ -7,7 +7,10 @@ import java.util.Comparator;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
+import static CodingUtils.NumberUtils.randDelta;
+import static java.util.stream.Collectors.toCollection;
 import static org.junit.Assert.*;
 
 /*................................................................................................................................
@@ -15,7 +18,7 @@ import static org.junit.Assert.*;
  .
  . The ArrayList8Test	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 20/01/18 01:08
+ . Last Modified : 16/03/18 09:08
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -35,6 +38,53 @@ public class ArrayList8Test
 
         return Integer.compare(testObject1.val3, testObject2.val3);
     };
+    //endregion
+
+    //region --------------- constructors (x3) ---------------
+    @Test
+    public void constructor_empty ()
+    {
+        ArrayList8<Object> list8 = new ArrayList8<>();
+        assertTrue(list8.isEmpty());
+    }
+
+    @Test
+    public void constructor_collection ()
+    {
+        for (int i = 0; i < 2000; i++)
+        {
+            ArrayList8<TestObject> testList = new ArrayList8<TestObject>()
+            {{
+                IntStream.range(0, randDelta(30, 10)).forEach(i -> add(randTestObject()));
+            }};
+
+            ArrayList8<TestObject> list8 = new ArrayList8<>(testList);
+
+            assertEquals(testList.size(), list8.size());
+            assertTrue(list8.containsAll(testList));
+        }
+    }
+
+    @Test
+    public void constructor_array ()
+    {
+        for (int i = 0; i < 2000; i++)
+        {
+            int randAmount = randDelta(30, 10);
+
+            TestObject[] testArray = new TestObject[randAmount];
+
+            for (int j = 0; j < randAmount; j++)
+            {
+                testArray[j] = randTestObject();
+            }
+
+            ArrayList8<TestObject> list8 = new ArrayList8<>(testArray);
+
+            assertEquals(testArray.length, list8.size());
+            assertTrue(list8.containsAll(testArray));
+        }
+    }
     //endregion
 
     //region --------------- getRandom (x2) ------------------
@@ -118,6 +168,51 @@ public class ArrayList8Test
     }
     //endregion
 
+    //region --------------- merge (x3) ----------------------
+    @Test
+    public void merge_Right ()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>()
+            {{
+                IntStream.range(0, randDelta(30, 10)).forEach(i -> add(randTestObject()));
+            }};
+
+            ArrayList8<TestObject> list2 = new ArrayList8<TestObject>()
+            {{
+                IntStream.range(0, randDelta(30, 10)).forEach(i -> add(randTestObject()));
+            }};
+
+            int prevSize1 = list1.size();
+            int prevSize2 = list2.size();
+
+            ArrayList8<TestObject> merge = list1.merge(list2);
+
+            assertEquals(list1, merge);
+            assertEquals(prevSize1 + prevSize2, list1.size());
+            assertEquals(prevSize1 + prevSize2, merge.size());
+        }
+    }
+
+    @Test
+    public void merge_Empty ()
+    {
+        ArrayList8<TestObject> list1 = new ArrayList8<>();
+        ArrayList8<TestObject> list2 = new ArrayList8<>();
+        ArrayList8<TestObject> merge = list1.merge(list2);
+
+        assertTrue(merge.isEmpty());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void merge_Null ()
+    {
+        ArrayList8<TestObject> list1 = new ArrayList8<>();
+        list1.merge(null);
+    }
+    //endregion
+
     //region --------------- addIf (x4) ----------------------
     @Test
     public void addIf_Right ()
@@ -145,21 +240,20 @@ public class ArrayList8Test
         assertEquals(0, list.countIf(positive));
     }
 
-    @Test (expected = NullPointerException.class)
     public void addIf_NullValue ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addIf(null, positive);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void addIf_NullPredicate ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addIf(randTestObject(), null);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void addIf_NullBoth ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -169,6 +263,7 @@ public class ArrayList8Test
 
     //region --------------- addAllIf (x4) -------------------
     @Test
+
     public void addAllIf_Right ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -202,21 +297,21 @@ public class ArrayList8Test
         assertEquals(0, list.size());
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void addAllIf_NullValue ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addAllIf(null, positive);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void addAllIf_NullPredicate ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addAllIf(new ArrayList8<>(), null);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void addAllIf_NullBoth ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -255,11 +350,93 @@ public class ArrayList8Test
         assertFalse(list.contains(positive));
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void contains_NullPredicate ()
     {
+        Predicate<TestObject> predicate = null;
+
+        new ArrayList8<TestObject>().contains(predicate);
+    }
+    //endregion
+
+    //region --------------- containsAny (x3) ----------------
+    @Test
+    public void containsAny_Right ()
+    {
+        ArrayList8<TestObject> testList = new ArrayList8<>();
         ArrayList8<TestObject> list = new ArrayList8<>();
-        list.contains(null);
+
+        for (int i = 0; i < 2000; i++)
+        {
+            TestObject commonTestObject = randTestObject();
+
+            testList.add(commonTestObject);
+            list.add(commonTestObject);
+
+            IntStream.range(0, 30).mapToObj(j -> randTestObject()).forEach(testList::add);
+
+            assertTrue(list.containsAny(testList.toArray(new TestObject[testList.size()])));
+
+            list.clear();
+            testList.clear();
+        }
+    }
+
+    @Test
+    public void containsAny_Empty ()
+    {
+        ArrayList8<TestObject> list = new ArrayList8<>();
+        assertFalse(list.containsAny());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void containsAny_Null ()
+    {
+        TestObject[] testArray = null;
+        new ArrayList8<TestObject>().containsAny(testArray);
+    }
+    //endregion
+
+    //region --------------- containsAll (x3) ----------------
+    @Test
+    public void containsAll_Right ()
+    {
+        ArrayList8<TestObject> testList = new ArrayList8<>();
+        ArrayList8<TestObject> list = new ArrayList8<>();
+
+        for (int i = 0; i < 2000; i++)
+        {
+            for (int j = 0; j < 30; j++)
+            {
+                TestObject testObject = randTestObject();
+                testList.add(testObject);
+                list.add(testObject);
+            }
+
+            assertTrue(list.containsAll(testList));
+
+            testList.add(randTestObject());
+
+            assertFalse(list.containsAll(testList));
+
+            list.clear();
+            testList.clear();
+        }
+    }
+
+    @Test
+    public void containsAll_Empty ()
+    {
+        ArrayList8<TestObject> list = new ArrayList8<>();
+        assertFalse(list.contains(positive));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void containsAll_Null ()
+    {
+        Predicate<TestObject> predicate = null;
+
+        new ArrayList8<TestObject>().contains(predicate);
     }
     //endregion
 
@@ -290,7 +467,7 @@ public class ArrayList8Test
         assertEquals(0, list.countIf(positive));
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void countIf_NullPredicate ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -325,7 +502,7 @@ public class ArrayList8Test
         assertEquals(0, list.subList(positive).size());
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void sublist_NullPredicate ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -341,26 +518,19 @@ public class ArrayList8Test
 
         for (int i = 0; i < 2000; i++)
         {
-            for (int j = 0; j < 500; j++)
-            {
-                TestObject testObject = randTestObject();
-                list.add(testObject);
-            }
+            IntStream.range(0, 500).mapToObj(j -> randTestObject()).forEach(list::add);
 
             Optional<TestObject> any1 = list.stream().filter(positive).findAny();
             Optional<TestObject> any2 = list.findAny(positive);
 
-            if (any1.isPresent() && any2.isPresent())
-            {
-                assertEquals(any1.get(), any2.get());
-            }
+            if (any1.isPresent() && any2.isPresent()) assertEquals(any1.get(), any2.get());
             else fail("any not found");
 
             list.clear();
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void findAny_NullPredicate ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -376,11 +546,7 @@ public class ArrayList8Test
 
         for (int i = 0; i < 2000; i++)
         {
-            for (int j = 0; j < 500; j++)
-            {
-                TestObject testObject = randTestObject();
-                list.add(testObject);
-            }
+            IntStream.range(0, 500).mapToObj(j -> randTestObject()).forEach(list::add);
 
             Optional<TestObject> first1 = list.stream().filter(positive).findFirst();
             Optional<TestObject> first2 = list.findFirst(positive);
@@ -392,7 +558,14 @@ public class ArrayList8Test
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test
+    public void findFirst_Empty ()
+    {
+        ArrayList8<TestObject> testList = new ArrayList8<>();
+        assertEquals(testList.findFirst(positive), Optional.empty());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
     public void findFirst_NullPredicate ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -428,7 +601,7 @@ public class ArrayList8Test
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void max_NullPredicate ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -464,7 +637,7 @@ public class ArrayList8Test
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void min_NullPredicate ()
     {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -472,7 +645,85 @@ public class ArrayList8Test
     }
     //endregion
 
-    //region --------------- Private method ------------------
+    //region --------------- reduce (x3) ---------------------
+    @Test
+    public void reduce_Right ()
+    {
+        for (int i = 0; i < 2000; i++)
+        {
+            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>()
+            {
+                {
+                    IntStream.range(0, randDelta(10, 5)).forEach(i -> add(randTestObject()));
+                }
+            };
+
+            int sumVal1 = list1.stream().mapToInt(t -> t.val1).sum();
+
+            Optional<TestObject> opt = list1.reduce((o1, o2) -> new TestObject(o1.val1 + o2.val1, 0, 0));
+
+            assertTrue(opt.isPresent());
+
+            assertEquals(sumVal1, opt.get().val1);
+        }
+    }
+
+    @Test
+    public void reduce_Empty ()
+    {
+        ArrayList8<TestObject> list1 = new ArrayList8<>();
+
+        Optional<TestObject> opt = list1.reduce((o1, o2) -> new TestObject(o1.val1 + o2.val1, o1.val2 + o2.val2, o1.val3 + o2.val3));
+
+        assertFalse(opt.isPresent());
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void reduce_Null ()
+    {
+        ArrayList8<TestObject> list1 = new ArrayList8<>();
+
+        list1.reduce(null);
+    }
+    //endregion
+
+    //region --------------- map (x3) ------------------------
+    @Test
+    public void map_Right ()
+    {
+        for (int i = 0; i < 2000; i++)
+        {
+            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>()
+            {{
+                IntStream.range(0, randDelta(10, 5)).forEach(i -> add(randTestObject()));
+            }};
+
+            ArrayList8<Integer> collect = list1.map(testObject -> testObject.val1).collect(toCollection(ArrayList8::new));
+
+            IntStream.range(0, list1.size()).forEach(index -> assertEquals(list1.get(index).val1, collect.get(index), 0.0001));
+        }
+    }
+
+    @Test
+    public void map_Empty ()
+    {
+        ArrayList8<TestObject> list1 = new ArrayList8<>();
+
+        ArrayList8<Integer> collect = list1.map(testObject -> testObject.val1).collect(toCollection(ArrayList8::new));
+
+        IntStream.range(0, list1.size()).forEach(i -> assertEquals(list1.get(i).val1, collect.get(i), 0.0001));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void map_Null ()
+    {
+        ArrayList8<TestObject> list1 = new ArrayList8<>();
+
+        list1.map(null);
+    }
+    //endregion
+
+    //region --------------- OtherMethods --------------------
     @NotNull
     private TestObject randTestObject ()
     {
