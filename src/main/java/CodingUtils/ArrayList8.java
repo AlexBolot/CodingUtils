@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  .
  . The ArrayList8	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 16/03/18 14:59
+ . Last Modified : 16/03/18 15:19
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -159,7 +159,7 @@ public class ArrayList8<E> extends ArrayList<E>
 
     public <R> ArrayList8<R> mapAndCollect (@NotNull Function<? super E, ? extends R> mapper)
     {
-        return this.stream().map(mapper).collect(Collectors.toCollection(ArrayList8::new));
+        return this.stream().map(mapper).collect(Collectors.toCollection(ArrayList8<R>::new));
     }
     //endregion
 }
