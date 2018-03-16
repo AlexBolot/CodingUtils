@@ -6,18 +6,21 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Random;
+
+import static CodingUtils.AssertUtils.assertNotEmpty;
 
 /*................................................................................................................................
  . Copyright (c)
  .
  . The NumberUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 20/01/18 00:53
+ . Last Modified : 20/02/18 23:25
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
-@SuppressWarnings ({"ResultOfMethodCallIgnored", "unchecked", "ConstantConditions"})
+@SuppressWarnings ({"WeakerAccess", "ResultOfMethodCallIgnored", "unchecked"})
 public class NumberUtils
 {
     //region --------------- is parsable (x3) ----------------
@@ -32,10 +35,7 @@ public class NumberUtils
      */
     public static boolean isInteger (@NotNull String string)
     {
-        //region --> Check params
-        if (string == null) throw new IllegalArgumentException("String param is null");
-        if (string.isEmpty()) throw new IllegalArgumentException("String param is empty");
-        //endregion
+        assertNotEmpty(string);
 
         try
         {
@@ -58,10 +58,7 @@ public class NumberUtils
      */
     public static boolean isFloat (@NotNull String string)
     {
-        //region --> Check params
-        if (string == null) throw new IllegalArgumentException("String param is null");
-        if (string.isEmpty()) throw new IllegalArgumentException("String param is empty");
-        //endregion
+        assertNotEmpty(string);
 
         try
         {
@@ -84,10 +81,7 @@ public class NumberUtils
      */
     public static boolean isDouble (@NotNull String string)
     {
-        //region --> Check params
-        if (string == null) throw new IllegalArgumentException("String param is null");
-        if (string.isEmpty()) throw new IllegalArgumentException("String param is empty");
-        //endregion
+        assertNotEmpty(string);
 
         try
         {
@@ -108,7 +102,6 @@ public class NumberUtils
      <h2>Tries to parse [string] into an Integer</h2>
      <h3>If not possible —>  IllegalArgumentException. <br>
      Note : see {@link NumberUtils#isInteger(String)}.</h3>
-     <br>
      <hr>
 
      @param string String to parse
@@ -116,10 +109,7 @@ public class NumberUtils
      */
     public static int tryParseInt (@NotNull String string)
     {
-        //region --> Check params
-        if (string == null) throw new IllegalArgumentException("String param is null");
-        if (string.isEmpty()) throw new IllegalArgumentException("String param is empty");
-        //endregion
+        assertNotEmpty(string);
 
         try
         {
@@ -135,10 +125,7 @@ public class NumberUtils
      <hr>
      <h2>Tries to parse [string] into a Float</h2>
      <h3>If not possible —>  IllegalArgumentException</h3>
-     Note 1 : see {@link NumberUtils#isFloat(String)}.<br>
-     <br>
-     Note 2 : asserts [string] isn't null.<br>
-     <br>
+     Note : see {@link NumberUtils#isFloat(String)}
      <hr>
 
      @param string String to parse
@@ -146,10 +133,7 @@ public class NumberUtils
      */
     public static float tryParseFloat (@NotNull String string)
     {
-        //region --> Check params
-        if (string == null) throw new IllegalArgumentException("String param is null");
-        if (string.isEmpty()) throw new IllegalArgumentException("String param is empty");
-        //endregion
+        assertNotEmpty(string);
 
         try
         {
@@ -165,10 +149,7 @@ public class NumberUtils
      <hr>
      <h2>Tries to parse [string] into a Double</h2>
      <h3>If not possible —>  IllegalArgumentException</h3>
-     Note 1 : see {@link NumberUtils#isDouble(String)}.<br>
-     <br>
-     Note 2 : asserts [string] isn't null.<br>
-     <br>
+     Note : see {@link NumberUtils#isDouble(String)}.
      <hr>
 
      @param string String to parse
@@ -176,10 +157,7 @@ public class NumberUtils
      */
     public static double tryParseDouble (@NotNull String string)
     {
-        //region --> Check params
-        if (string == null) throw new IllegalArgumentException("String param is null");
-        if (string.isEmpty()) throw new IllegalArgumentException("String param is empty");
-        //endregion
+        assertNotEmpty(string);
 
         try
         {
@@ -207,9 +185,7 @@ public class NumberUtils
     @Contract (pure = true)
     public static boolean isInBounds (double minBound, double value, double maxBound)
     {
-        //region --> Check params
         if (maxBound < minBound) throw new IllegalArgumentException("maxBound < minBound");
-        //endregion
 
         return minBound < value && value < maxBound;
     }
@@ -226,13 +202,7 @@ public class NumberUtils
      */
     public static <T> boolean isInBounds (@NotNull T minBound, @NotNull T value, @NotNull T maxBound, @NotNull Comparator<T> comparator)
     {
-        //region --> Check params
-        if (value == null) throw new IllegalArgumentException("Value param is null");
-        if (minBound == null) throw new IllegalArgumentException("MinBound param is null");
-        if (maxBound == null) throw new IllegalArgumentException("MaxBound param is null");
-        if (comparator == null) throw new IllegalArgumentException("Comparator param is null");
         if (comparator.compare(maxBound, minBound) < 0) throw new IllegalArgumentException("maxBound < minBound");
-        //endregion
 
         return comparator.compare(minBound, value) < 0 && comparator.compare(value, maxBound) < 0;
     }
@@ -249,12 +219,7 @@ public class NumberUtils
      */
     public static <T extends Comparable<T>> boolean isInBounds (@NotNull T minBound, @NotNull T value, @NotNull T maxBound)
     {
-        //region --> Check params
-        if (value == null) throw new IllegalArgumentException("Value param is null");
-        if (minBound == null) throw new IllegalArgumentException("MinBound param is null");
-        if (maxBound == null) throw new IllegalArgumentException("MaxBound param is null");
         if (maxBound.compareTo(minBound) < 0) throw new IllegalArgumentException("maxBound < minBound");
-        //endregion
 
         return minBound.compareTo(value) < 0 && value.compareTo(maxBound) < 0;
     }
@@ -263,11 +228,7 @@ public class NumberUtils
     //region --------------- min (x5) ------------------------
     public static double min (@NotNull double[] array)
     {
-        //region --> Check params
-        if (array == null) throw new IllegalArgumentException("Array param is null");
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-        //endregion
-
         if (array.length == 1) return array[0];
 
         return Arrays.stream(array).min().orElse(Double.MAX_VALUE);
@@ -275,11 +236,7 @@ public class NumberUtils
 
     public static <T> T min (@NotNull T[] array, @NotNull Comparator<T> comparator)
     {
-        //region --> Check params
-        if (array == null) throw new IllegalArgumentException("Array param is null");
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-        //endregion
-
         if (array.length == 1) return array[0];
 
         T min = array[0];
@@ -294,10 +251,7 @@ public class NumberUtils
 
     public static <T> T min (@NotNull Collection<T> collection, @NotNull Comparator<T> comparator)
     {
-        //region --> Check params
-        if (collection == null) throw new IllegalArgumentException("Collection param is null");
-        if (collection.size() == 0) throw new IllegalArgumentException("Collection is empty");
-        //endregion
+        assertNotEmpty(collection);
 
         if (collection.size() == 1) return (T) collection.toArray()[0];
 
@@ -313,11 +267,7 @@ public class NumberUtils
 
     public static <T extends Comparable<T>> T min (@NotNull T[] array)
     {
-        //region --> Check params
-        if (array == null) throw new IllegalArgumentException("Array param is null");
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-        //endregion
-
         if (array.length == 1) return array[0];
 
         T min = array[0];
@@ -332,10 +282,7 @@ public class NumberUtils
 
     public static <T extends Comparable<T>> T min (@NotNull Collection<T> collection)
     {
-        //region --> Check params
-        if (collection == null) throw new IllegalArgumentException("Collection param is null");
-        if (collection.size() == 0) throw new IllegalArgumentException("Collection is empty");
-        //endregion
+        assertNotEmpty(collection);
 
         if (collection.size() == 1) return (T) collection.toArray()[0];
 
@@ -354,11 +301,7 @@ public class NumberUtils
     @Contract (pure = true)
     public static double max (@NotNull double[] array)
     {
-        //region --> Check params
-        if (array == null) throw new IllegalArgumentException("Array param is null");
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-        //endregion
-
         if (array.length == 1) return array[0];
 
         return Arrays.stream(array).max().orElse(Integer.MIN_VALUE);
@@ -366,11 +309,7 @@ public class NumberUtils
 
     public static <T> T max (@NotNull T[] array, @NotNull Comparator<T> comparator)
     {
-        //region --> Check params
-        if (array == null) throw new IllegalArgumentException("Array param is null");
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-        //endregion
-
         if (array.length == 1) return array[0];
 
         T max = array[0];
@@ -385,10 +324,7 @@ public class NumberUtils
 
     public static <T> T max (@NotNull Collection<T> collection, @NotNull Comparator<T> comparator)
     {
-        //region --> Check params
-        if (collection == null) throw new IllegalArgumentException("Collection param is null");
-        if (collection.size() == 0) throw new IllegalArgumentException("Collection is empty");
-        //endregion
+        assertNotEmpty(collection);
 
         if (collection.size() == 1) return (T) collection.toArray()[0];
 
@@ -404,11 +340,7 @@ public class NumberUtils
 
     public static <T extends Comparable<T>> T max (@NotNull T[] array)
     {
-        //region --> Check params
-        if (array == null) throw new IllegalArgumentException("Array param is null");
         if (array.length == 0) throw new IllegalArgumentException("Array is empty");
-        //endregion
-
         if (array.length == 1) return array[0];
 
         T max = array[0];
@@ -423,10 +355,7 @@ public class NumberUtils
 
     public static <T extends Comparable<T>> T max (@NotNull Collection<T> collection)
     {
-        //region --> Check params
-        if (collection == null) throw new IllegalArgumentException("Collection param is null");
-        if (collection.size() == 0) throw new IllegalArgumentException("Collection is empty");
-        //endregion
+        assertNotEmpty(collection);
 
         if (collection.size() == 1) return (T) collection.toArray()[0];
 
@@ -438,6 +367,41 @@ public class NumberUtils
         }
 
         return max;
+    }
+    //endregion
+
+    //region --------------- random (x3) ---------------------
+
+    /**
+     <hr>
+     <h2>Generates a random int between 2 values</h2>
+     <hr>
+
+     @param lowBound  Included, lower bound of the random number
+     @param highBound Excluded, higer bound of the random number
+     @return A random int between lowBound (included) and highBound (excluded)
+     */
+    public static int randBetween (int lowBound, int highBound)
+    {
+        if (highBound <= lowBound) throw new IllegalArgumentException("Forbidden params : highBound) <= lowBound");
+
+        return new Random().nextInt(highBound - lowBound) + lowBound;
+    }
+
+    /**
+     <hr>
+     <h2>Generates a random int between center +/- delta  </h2>
+     <hr>
+
+     @param center Central value, middle of the rand numbers generated
+     @param delta  Min and max bounds around the center value
+     @return A random int between center +/- delta
+     */
+    public static int randDelta (int center, int delta)
+    {
+        if (delta < 0) throw new IllegalArgumentException("Delta param is negative");
+
+        return randBetween(center - delta, center + delta);
     }
     //endregion
 }

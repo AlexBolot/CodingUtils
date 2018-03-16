@@ -9,7 +9,7 @@ import java.util.*;
  .
  . The AssertUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 20/01/18 00:56
+ . Last Modified : 20/02/18 23:08
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -34,7 +34,7 @@ public class AssertUtilsTest
         AssertUtils.assertNotNull(o);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void assertNotNull_1Param_Null ()
     {
         Object o = null;
@@ -57,7 +57,7 @@ public class AssertUtilsTest
         AssertUtils.assertNotNull(objects);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void assertNotNull_nParam_OneIsNull ()
     {
         int maxIndex = new Random().nextInt(200);
@@ -74,7 +74,7 @@ public class AssertUtilsTest
         AssertUtils.assertNotNull(objects);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void assertNotNull_nParam_ListNull ()
     {
         Object[] objects = null;
@@ -101,7 +101,7 @@ public class AssertUtilsTest
         AssertUtils.assertNotEmpty(string);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_String_Null ()
     {
         string = null;
@@ -126,7 +126,7 @@ public class AssertUtilsTest
         AssertUtils.assertNotEmpty(objectList);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_List_Null ()
     {
         objectList = null;
@@ -155,7 +155,7 @@ public class AssertUtilsTest
         AssertUtils.assertNotEmpty(objectMap);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void assertNotEmpty_Map_Null ()
     {
         objectMap = null;

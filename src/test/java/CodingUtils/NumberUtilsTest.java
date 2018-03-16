@@ -1,10 +1,12 @@
 package CodingUtils;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static CodingUtils.NumberUtils.*;
@@ -15,7 +17,7 @@ import static org.junit.Assert.*;
  .
  . The NumberUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 20/01/18 01:08
+ . Last Modified : 20/02/18 23:11
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -24,6 +26,7 @@ import static org.junit.Assert.*;
 public class NumberUtilsTest
 {
     //region --------------- Attributes -------------------------
+    private Random random = new Random();
     private String string;
     private double delta = 0.001;
 
@@ -64,6 +67,9 @@ public class NumberUtilsTest
 
         return new NotComparable(valDay, valMonth, valYear);
     }
+
+    @Contract (pure = true)
+    private int negativeOf (int val) { return (val >= 0) ? -val : val; }
     //endregion
 
     //region --------------- isParseable (x3 x12) ---------------
@@ -89,7 +95,7 @@ public class NumberUtilsTest
         assertFalse(isInteger(string));
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void isInteger_Null ()
     {
         string = null;
@@ -127,7 +133,7 @@ public class NumberUtilsTest
         assertFalse(isFloat(string));
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void isFloat_Null ()
     {
         string = null;
@@ -165,7 +171,7 @@ public class NumberUtilsTest
         assertFalse(isDouble(string));
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void isDouble_Null ()
     {
         string = null;
@@ -204,7 +210,7 @@ public class NumberUtilsTest
         tryParseInt(string);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void tryParseInt_Null ()
     {
         string = null;
@@ -238,7 +244,7 @@ public class NumberUtilsTest
         tryParseFloat(string);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void tryParseFloat_Null ()
     {
         string = null;
@@ -272,7 +278,7 @@ public class NumberUtilsTest
         tryParseDouble(string);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void tryParseDouble_Null ()
     {
         string = null;
@@ -349,7 +355,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void isInBound_NotComparable_Null ()
     {
         for (int i = 0; i < 2000; i++)
@@ -450,7 +456,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void isInBound_Comparable_Null ()
     {
         for (int i = 0; i < 2000; i++)
@@ -537,7 +543,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void min_Array_Double_Null ()
     {
         double[] array = null;
@@ -575,7 +581,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void min_Array_NotComparable_Null ()
     {
         NotComparable[] array = null;
@@ -613,7 +619,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void min_Array_Comparable_Null ()
     {
         Comparable[] array = null;
@@ -651,7 +657,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void min_Collection_NotComparable_Null ()
     {
         ArrayList<NotComparable> arrayList = null;
@@ -689,7 +695,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void min_Collection_Comparable_Null ()
     {
         ArrayList<Comparable> arrayList = null;
@@ -730,7 +736,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void max_Array_Double_Null ()
     {
         double[] array = null;
@@ -768,7 +774,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void max_Array_NotComparable_Null ()
     {
         NotComparable[] array = null;
@@ -806,7 +812,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void max_Array_Comparable_Null ()
     {
         Comparable[] array = null;
@@ -844,7 +850,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void max_Collection_NotComparable_Null ()
     {
         ArrayList<NotComparable> arrayList = null;
@@ -882,7 +888,7 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void max_Collection_Comparable_Null ()
     {
         ArrayList<Comparable> arrayList = null;
@@ -897,6 +903,87 @@ public class NumberUtilsTest
     }
     //endregion
 
+    //endregion
+
+    //region --------------- randBetween (x3) -------------------
+    @Test
+    public void randBetween_Right ()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            int minBound = random.nextInt() / 3;
+            int maxBound = random.nextInt() / 3;
+
+            while (maxBound <= minBound) maxBound = random.nextInt() / 3;
+
+            int randVal = randBetween(minBound, maxBound);
+
+            assertTrue(minBound <= randVal);
+            assertTrue(randVal < maxBound);
+        }
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void randBetween_InvertedBounds ()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            int minBound = random.nextInt() / 3;
+            int maxBound = random.nextInt() / 3;
+
+            while (maxBound >= minBound) maxBound = random.nextInt() / 3;
+
+            randBetween(minBound, maxBound);
+        }
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void randBetween_EqualsBounds ()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            int minBound = random.nextInt() / 3;
+            randBetween(minBound, minBound);
+        }
+    }
+    //endregion
+
+    //region --------------- randDelta (x3) ---------------------
+    @Test
+    public void randDelta_Right ()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            int center = random.nextInt() / 3;
+            int delta = Math.abs(random.nextInt() / 3);
+
+            int randVal = randDelta(center, delta);
+
+            assertTrue(center - delta <= randVal);
+            assertTrue(randVal < center + delta);
+        }
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void randDelta_NegativeDelta ()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            int center = random.nextInt() / 3;
+            int delta = negativeOf(random.nextInt() / 3);
+
+            randDelta(center, delta);
+        }
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void randDelta_ZeroCenterAndDelta ()
+    {
+        int center = 0;
+        int delta = 0;
+
+        randDelta(center, delta);
+    }
     //endregion
 
     //region --------------- Private classes --------------------

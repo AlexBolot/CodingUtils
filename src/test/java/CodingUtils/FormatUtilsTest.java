@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  .
  . The FormatUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 20/01/18 01:08
+ . Last Modified : 20/02/18 23:11
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -67,7 +67,7 @@ public class FormatUtilsTest
         assertEquals("", FormatUtils.toFirstUpperCase(string));
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void toFirstUpperCase_Null ()
     {
         string = null;
@@ -119,7 +119,7 @@ public class FormatUtilsTest
         clear_OutputStream();
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void printList_Null ()
     {
         List<Object> objects = null;
@@ -131,7 +131,7 @@ public class FormatUtilsTest
         FormatUtils.printListFancy(objects, start, separator, end);
     }
 
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void printList_NullParams ()
     {
         setUp_OutputStream();
@@ -197,7 +197,7 @@ public class FormatUtilsTest
         clear_OutputStream();
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void printArray_Null ()
     {
         Object[] objects = null;
@@ -210,7 +210,7 @@ public class FormatUtilsTest
     }
 
 
-    @Test
+    @Test (expected = IllegalArgumentException.class)
     public void printArray_NullParams ()
     {
         setUp_OutputStream();
