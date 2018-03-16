@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  .
  . The ArrayList8Test	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 16/03/18 09:08
+ . Last Modified : 16/03/18 14:59
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -720,6 +720,42 @@ public class ArrayList8Test
         ArrayList8<TestObject> list1 = new ArrayList8<>();
 
         list1.map(null);
+    }
+    //endregion
+
+    //region --------------- map (x3) ------------------------
+    @Test
+    public void mapAndCollect_Right ()
+    {
+        for (int i = 0; i < 2000; i++)
+        {
+            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>()
+            {{
+                IntStream.range(0, randDelta(10, 5)).forEach(i -> add(randTestObject()));
+            }};
+
+            ArrayList8<Integer> collect = list1.mapAndCollect(testObject -> testObject.val1);
+
+            IntStream.range(0, list1.size()).forEach(index -> assertEquals(list1.get(index).val1, collect.get(index), 0.0001));
+        }
+    }
+
+    @Test
+    public void mapAndCollect_Empty ()
+    {
+        ArrayList8<TestObject> list1 = new ArrayList8<>();
+
+        ArrayList8<Integer> collect = list1.mapAndCollect(testObject -> testObject.val1);
+
+        IntStream.range(0, list1.size()).forEach(i -> assertEquals(list1.get(i).val1, collect.get(i), 0.0001));
+    }
+
+    @Test (expected = IllegalArgumentException.class)
+    public void mapAndCollect_Null ()
+    {
+        ArrayList8<TestObject> list1 = new ArrayList8<>();
+
+        list1.mapAndCollect(null);
     }
     //endregion
 

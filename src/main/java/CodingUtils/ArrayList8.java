@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /*................................................................................................................................
@@ -14,7 +15,7 @@ import java.util.stream.Stream;
  .
  . The ArrayList8	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 16/03/18 08:28
+ . Last Modified : 16/03/18 14:59
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -154,6 +155,11 @@ public class ArrayList8<E> extends ArrayList<E>
     public <R> Stream<R> map (@NotNull Function<? super E, ? extends R> mapper)
     {
         return this.stream().map(mapper);
+    }
+
+    public <R> ArrayList8<R> mapAndCollect (@NotNull Function<? super E, ? extends R> mapper)
+    {
+        return this.stream().map(mapper).collect(Collectors.toCollection(ArrayList8::new));
     }
     //endregion
 }
