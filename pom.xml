@@ -3,7 +3,7 @@
   .
   . The pom.xml	 Class was Coded by : Alexandre BOLOT
   .
-  . Last Modified : 16/03/18 09:17
+  . Last Modified : 16/03/18 09:24
   .
   . Contact : bolotalex06@gmail.com
   .............................................................................................................................-->
@@ -32,6 +32,13 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>3.0.0</version>
+				<configuration>
+					<skip>true</skip>
 				</configuration>
 			</plugin>
 		</plugins>
