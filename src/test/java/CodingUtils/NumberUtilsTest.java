@@ -17,14 +17,13 @@ import static org.junit.Assert.*;
  .
  . The NumberUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 20/02/18 23:11
+ . Last Modified : 17/11/18 01:08
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
-@SuppressWarnings ({"ConstantConditions", "ResultOfMethodCallIgnored"})
-public class NumberUtilsTest
-{
+@SuppressWarnings({"ConstantConditions", "ResultOfMethodCallIgnored"})
+public class NumberUtilsTest {
     //region --------------- Attributes -------------------------
     private Random random = new Random();
     private String string;
@@ -49,8 +48,7 @@ public class NumberUtilsTest
 
     //region --------------- Private Methods --------------------
     @NotNull
-    private Comparable randComparable ()
-    {
+    private Comparable randComparable() {
         int valDay = ThreadLocalRandom.current().nextInt();
         int valMonth = ThreadLocalRandom.current().nextInt();
         int valYear = ThreadLocalRandom.current().nextInt();
@@ -59,8 +57,7 @@ public class NumberUtilsTest
     }
 
     @NotNull
-    private NotComparable randNotComparable ()
-    {
+    private NotComparable randNotComparable() {
         int valDay = ThreadLocalRandom.current().nextInt();
         int valMonth = ThreadLocalRandom.current().nextInt();
         int valYear = ThreadLocalRandom.current().nextInt();
@@ -68,44 +65,41 @@ public class NumberUtilsTest
         return new NotComparable(valDay, valMonth, valYear);
     }
 
-    @Contract (pure = true)
-    private int negativeOf (int val) { return (val >= 0) ? -val : val; }
+    @Contract(pure = true)
+    private int negativeOf(int val) {
+        return (val >= 0) ? -val : val;
+    }
     //endregion
 
     //region --------------- isParseable (x3 x12) ---------------
 
     //region ---------- isInteger ---------------------------
     @Test
-    public void isInteger_Right ()
-    {
+    public void isInteger_Right() {
         int maxIndex = ThreadLocalRandom.current().nextInt(2000);
 
-        for (int i = 0; i < maxIndex; i++)
-        {
+        for (int i = 0; i < maxIndex; i++) {
             string = String.valueOf(ThreadLocalRandom.current().nextInt());
             assertTrue(isInteger(string));
         }
     }
 
     @Test
-    public void isInteger_NotParsable ()
-    {
+    public void isInteger_NotParsable() {
         string = "This can not be parsed into an int";
 
         assertFalse(isInteger(string));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void isInteger_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void isInteger_Null() {
         string = null;
 
         isInteger(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void isInteger_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void isInteger_Empty() {
         string = "";
 
         isInteger(string);
@@ -114,36 +108,31 @@ public class NumberUtilsTest
 
     //region ---------- isFloat -----------------------------
     @Test
-    public void isFloat_Right ()
-    {
+    public void isFloat_Right() {
         int maxIndex = ThreadLocalRandom.current().nextInt(2000);
 
-        for (int i = 0; i < maxIndex; i++)
-        {
+        for (int i = 0; i < maxIndex; i++) {
             string = String.valueOf(ThreadLocalRandom.current().nextFloat() + ThreadLocalRandom.current().nextInt());
             assertTrue(isFloat(string));
         }
     }
 
     @Test
-    public void isFloat_NotParsable ()
-    {
+    public void isFloat_NotParsable() {
         string = "This can not be parsed into a float";
 
         assertFalse(isFloat(string));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void isFloat_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void isFloat_Null() {
         string = null;
 
         isFloat(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void isFloat_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void isFloat_Empty() {
         string = "";
 
         isFloat(string);
@@ -152,36 +141,31 @@ public class NumberUtilsTest
 
     //region ---------- isDouble ----------------------------
     @Test
-    public void isDouble_Right ()
-    {
+    public void isDouble_Right() {
         int maxIndex = ThreadLocalRandom.current().nextInt(2000);
 
-        for (int i = 0; i < maxIndex; i++)
-        {
+        for (int i = 0; i < maxIndex; i++) {
             string = String.valueOf(ThreadLocalRandom.current().nextDouble() + ThreadLocalRandom.current().nextInt());
             assertTrue(isDouble(string));
         }
     }
 
     @Test
-    public void isDouble_NotParsable ()
-    {
+    public void isDouble_NotParsable() {
         string = "This can not be parsed into a double";
 
         assertFalse(isDouble(string));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void isDouble_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void isDouble_Null() {
         string = null;
 
         isDouble(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void isDouble_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void isDouble_Empty() {
         string = "";
 
         isDouble(string);
@@ -194,32 +178,28 @@ public class NumberUtilsTest
 
     //region ---------- tryParseInt -------------------------
     @Test
-    public void tryParseInt_Right ()
-    {
+    public void tryParseInt_Right() {
         int value = ThreadLocalRandom.current().nextInt();
         string = String.valueOf(value);
 
         assertEquals(value, tryParseInt(string));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseInt_NotParsable ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void tryParseInt_NotParsable() {
         string = "This can not be parsed into an int";
 
         tryParseInt(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseInt_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void tryParseInt_Null() {
         string = null;
         tryParseInt(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseInt_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void tryParseInt_Empty() {
         string = "";
 
         tryParseInt(string);
@@ -228,32 +208,28 @@ public class NumberUtilsTest
 
     //region ---------- tryParseFloat -----------------------
     @Test
-    public void tryParseFloat_Right ()
-    {
+    public void tryParseFloat_Right() {
         float value = ThreadLocalRandom.current().nextFloat();
         string = String.valueOf(value);
 
         assertEquals(value, tryParseFloat(string), delta);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseFloat_NotParsable ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void tryParseFloat_NotParsable() {
         string = "This can not be parsed into a float";
 
         tryParseFloat(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseFloat_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void tryParseFloat_Null() {
         string = null;
         tryParseFloat(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseFloat_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void tryParseFloat_Empty() {
         string = "";
 
         tryParseFloat(string);
@@ -262,32 +238,28 @@ public class NumberUtilsTest
 
     //region ---------- tryParseDouble ----------------------
     @Test
-    public void tryParseDouble_Right ()
-    {
+    public void tryParseDouble_Right() {
         double value = ThreadLocalRandom.current().nextDouble();
         string = String.valueOf(value);
 
         assertEquals(value, tryParseDouble(string), delta);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseDouble_NotParsable ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void tryParseDouble_NotParsable() {
         string = "This can not be parsed into a double";
 
         tryParseDouble(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseDouble_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void tryParseDouble_Null() {
         string = null;
         tryParseDouble(string);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void tryParseDouble_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void tryParseDouble_Empty() {
         string = "";
 
         tryParseDouble(string);
@@ -300,10 +272,8 @@ public class NumberUtilsTest
 
     //region ---------- isInBoundsDouble --------------------
     @Test
-    public void isInBound_Double_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void isInBound_Double_Right() {
+        for (int i = 0; i < 2000; i++) {
             int value = ThreadLocalRandom.current().nextInt();
             int min = ThreadLocalRandom.current().nextInt(Integer.MIN_VALUE, value);
             int max = ThreadLocalRandom.current().nextInt(value, Integer.MAX_VALUE);
@@ -314,9 +284,8 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void isInBound_Double_BadBounds ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void isInBound_Double_BadBounds() {
         int value = ThreadLocalRandom.current().nextInt();
         int min = ThreadLocalRandom.current().nextInt(Integer.MIN_VALUE, value);
         int max = ThreadLocalRandom.current().nextInt(value, Integer.MAX_VALUE);
@@ -327,10 +296,8 @@ public class NumberUtilsTest
 
     //region ---------- isInBoundsNotComparable -------------
     @Test
-    public void isInBound_NotComparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void isInBound_NotComparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int maxVal = Integer.MAX_VALUE;
             int minVal = Integer.MIN_VALUE;
 
@@ -355,11 +322,9 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void isInBound_NotComparable_Null ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    @Test(expected = IllegalArgumentException.class)
+    public void isInBound_NotComparable_Null() {
+        for (int i = 0; i < 2000; i++) {
             int count = 0;
 
             int maxVal = Integer.MAX_VALUE;
@@ -381,42 +346,30 @@ public class NumberUtilsTest
             NotComparable max = new NotComparable(maxDay, maxMonth, maxYear);
 
             //region min null
-            try
-            {
+            try {
                 isInBounds(null, val, max, comparator);
-            }
-            catch (NullPointerException ignored)
-            {
+            } catch (NullPointerException ignored) {
                 count++;
             }
             //endregion
             //region val null
-            try
-            {
+            try {
                 isInBounds(min, null, max, comparator);
-            }
-            catch (NullPointerException ignored)
-            {
+            } catch (NullPointerException ignored) {
                 count++;
             }
             //endregion
             //region max null
-            try
-            {
+            try {
                 isInBounds(min, val, null, comparator);
-            }
-            catch (NullPointerException ignored)
-            {
+            } catch (NullPointerException ignored) {
                 count++;
             }
             //endregion
             //region cmp null
-            try
-            {
+            try {
                 isInBounds(min, val, max, null);
-            }
-            catch (NullPointerException ignored)
-            {
+            } catch (NullPointerException ignored) {
                 count++;
             }
             //endregion
@@ -428,10 +381,8 @@ public class NumberUtilsTest
 
     //region ---------- isInBoundsComparable ----------------
     @Test
-    public void isInBound_Comparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void isInBound_Comparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int maxVal = Integer.MAX_VALUE;
             int minVal = Integer.MIN_VALUE;
 
@@ -456,11 +407,9 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void isInBound_Comparable_Null ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    @Test(expected = IllegalArgumentException.class)
+    public void isInBound_Comparable_Null() {
+        for (int i = 0; i < 2000; i++) {
             int count = 0;
 
             int maxVal = Integer.MAX_VALUE;
@@ -482,32 +431,23 @@ public class NumberUtilsTest
             Comparable max = new Comparable(maxDay, maxMonth, maxYear);
 
             //region min null
-            try
-            {
+            try {
                 isInBounds(null, val, max);
-            }
-            catch (NullPointerException ignored)
-            {
+            } catch (NullPointerException ignored) {
                 count++;
             }
             //endregion
             //region val null
-            try
-            {
+            try {
                 isInBounds(min, null, max);
-            }
-            catch (NullPointerException ignored)
-            {
+            } catch (NullPointerException ignored) {
                 count++;
             }
             //endregion
             //region max null
-            try
-            {
+            try {
                 isInBounds(min, val, null);
-            }
-            catch (NullPointerException ignored)
-            {
+            } catch (NullPointerException ignored) {
                 count++;
             }
             //endregion
@@ -523,16 +463,13 @@ public class NumberUtilsTest
 
     //region ---------- minArrayDouble ----------------------
     @Test
-    public void min_Array_Double_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void min_Array_Double_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             int min = Integer.MAX_VALUE;
             double[] array = new double[size];
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 int val = ThreadLocalRandom.current().nextInt();
                 array[j] = val;
 
@@ -543,16 +480,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Array_Double_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Array_Double_Null() {
         double[] array = null;
         min(array);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Array_Double_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Array_Double_Empty() {
         double[] array = new double[]{};
         min(array);
     }
@@ -560,16 +495,13 @@ public class NumberUtilsTest
 
     //region ---------- minArrayNotComparable ---------------
     @Test
-    public void min_Array_NotComparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void min_Array_NotComparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             NotComparable min = MIN_NOT_COMPARABLE;
             NotComparable[] array = new NotComparable[size];
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 NotComparable val = randNotComparable();
 
                 array[j] = val;
@@ -581,16 +513,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Array_NotComparable_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Array_NotComparable_Null() {
         NotComparable[] array = null;
         min(array, comparator);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Array_NotComparable_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Array_NotComparable_Empty() {
         NotComparable[] array = new NotComparable[]{};
         min(array, comparator);
     }
@@ -598,16 +528,13 @@ public class NumberUtilsTest
 
     //region ---------- minArrayComparable ------------------
     @Test
-    public void min_Array_Comparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void min_Array_Comparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             Comparable min = MIN_COMPARABLE;
             Comparable[] array = new Comparable[size];
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 Comparable val = randComparable();
 
                 array[j] = val;
@@ -619,16 +546,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Array_Comparable_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Array_Comparable_Null() {
         Comparable[] array = null;
         min(array);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Array_Comparable_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Array_Comparable_Empty() {
         Comparable[] array = new Comparable[]{};
         min(array);
     }
@@ -636,16 +561,13 @@ public class NumberUtilsTest
 
     //region ---------- minCollectionNotComparable ----------
     @Test
-    public void min_Collection_NotComparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void min_Collection_NotComparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             NotComparable min = MIN_NOT_COMPARABLE;
             ArrayList<NotComparable> arrayList = new ArrayList<>();
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 NotComparable val = randNotComparable();
 
                 arrayList.add(val);
@@ -657,16 +579,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Collection_NotComparable_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Collection_NotComparable_Null() {
         ArrayList<NotComparable> arrayList = null;
         min(arrayList, comparator);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Collection_NotComparable_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Collection_NotComparable_Empty() {
         ArrayList<NotComparable> arrayList = new ArrayList<>();
         min(arrayList, comparator);
     }
@@ -674,16 +594,13 @@ public class NumberUtilsTest
 
     //region ---------- minCollectionComparable -------------
     @Test
-    public void min_Collection_Comparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void min_Collection_Comparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             Comparable min = MIN_COMPARABLE;
             ArrayList<Comparable> arrayList = new ArrayList<>();
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 Comparable val = randComparable();
 
                 arrayList.add(val);
@@ -695,16 +612,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Collection_Comparable_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Collection_Comparable_Null() {
         ArrayList<Comparable> arrayList = null;
         min(arrayList);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_Collection_Comparable_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_Collection_Comparable_Empty() {
         ArrayList<Comparable> arrayList = new ArrayList<>();
         min(arrayList);
     }
@@ -716,16 +631,13 @@ public class NumberUtilsTest
 
     //region ---------- maxArrayDouble ----------------------
     @Test
-    public void max_Array_Double_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void max_Array_Double_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             int max = Integer.MIN_VALUE;
             double[] array = new double[size];
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 int val = ThreadLocalRandom.current().nextInt();
                 array[j] = val;
 
@@ -736,16 +648,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Array_Double_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Array_Double_Null() {
         double[] array = null;
         max(array);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Array_Double_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Array_Double_Empty() {
         double[] array = new double[]{};
         max(array);
     }
@@ -753,16 +663,13 @@ public class NumberUtilsTest
 
     //region ---------- maxArrayNotComparable ---------------
     @Test
-    public void max_Array_NotComparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void max_Array_NotComparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             NotComparable max = MAX_NOT_COMPARABLE;
             NotComparable[] array = new NotComparable[size];
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 NotComparable val = randNotComparable();
 
                 array[j] = val;
@@ -774,16 +681,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Array_NotComparable_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Array_NotComparable_Null() {
         NotComparable[] array = null;
         max(array, comparator);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Array_NotComparable_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Array_NotComparable_Empty() {
         NotComparable[] array = new NotComparable[]{};
         max(array, comparator);
     }
@@ -791,16 +696,13 @@ public class NumberUtilsTest
 
     //region ---------- maxArrayComparable ------------------
     @Test
-    public void max_Array_Comparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void max_Array_Comparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             Comparable max = MAX_COMPARABLE;
             Comparable[] array = new Comparable[size];
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 Comparable val = randComparable();
 
                 array[j] = val;
@@ -812,16 +714,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Array_Comparable_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Array_Comparable_Null() {
         Comparable[] array = null;
         max(array);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Array_Comparable_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Array_Comparable_Empty() {
         Comparable[] array = new Comparable[]{};
         max(array);
     }
@@ -829,16 +729,13 @@ public class NumberUtilsTest
 
     //region ---------- maxCollectionNotComparable ----------
     @Test
-    public void max_Collection_NotComparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void max_Collection_NotComparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             NotComparable max = MAX_NOT_COMPARABLE;
             ArrayList<NotComparable> arrayList = new ArrayList<>();
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 NotComparable val = randNotComparable();
 
                 arrayList.add(val);
@@ -850,16 +747,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Collection_NotComparable_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Collection_NotComparable_Null() {
         ArrayList<NotComparable> arrayList = null;
         max(arrayList, comparator);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Collection_NotComparable_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Collection_NotComparable_Empty() {
         ArrayList<NotComparable> arrayList = new ArrayList<>();
         max(arrayList, comparator);
     }
@@ -867,16 +762,13 @@ public class NumberUtilsTest
 
     //region ---------- maxCollectionComparable -------------
     @Test
-    public void max_Collection_Comparable_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void max_Collection_Comparable_Right() {
+        for (int i = 0; i < 2000; i++) {
             int size = ThreadLocalRandom.current().nextInt(500) + 1;
             Comparable max = MAX_COMPARABLE;
             ArrayList<Comparable> arrayList = new ArrayList<>();
 
-            for (int j = 0; j < size; j++)
-            {
+            for (int j = 0; j < size; j++) {
                 Comparable val = randComparable();
 
                 arrayList.add(val);
@@ -888,16 +780,14 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Collection_Comparable_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Collection_Comparable_Null() {
         ArrayList<Comparable> arrayList = null;
         max(arrayList);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_Collection_Comparable_Empty ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_Collection_Comparable_Empty() {
         ArrayList<Comparable> arrayList = new ArrayList<>();
         max(arrayList);
     }
@@ -907,10 +797,8 @@ public class NumberUtilsTest
 
     //region --------------- randBetween (x3) -------------------
     @Test
-    public void randBetween_Right ()
-    {
-        for (int i = 0; i < 1000; i++)
-        {
+    public void randBetween_Right() {
+        for (int i = 0; i < 1000; i++) {
             int minBound = random.nextInt() / 3;
             int maxBound = random.nextInt() / 3;
 
@@ -923,11 +811,9 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void randBetween_InvertedBounds ()
-    {
-        for (int i = 0; i < 1000; i++)
-        {
+    @Test(expected = IllegalArgumentException.class)
+    public void randBetween_InvertedBounds() {
+        for (int i = 0; i < 1000; i++) {
             int minBound = random.nextInt() / 3;
             int maxBound = random.nextInt() / 3;
 
@@ -937,11 +823,9 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void randBetween_EqualsBounds ()
-    {
-        for (int i = 0; i < 1000; i++)
-        {
+    @Test(expected = IllegalArgumentException.class)
+    public void randBetween_EqualsBounds() {
+        for (int i = 0; i < 1000; i++) {
             int minBound = random.nextInt() / 3;
             randBetween(minBound, minBound);
         }
@@ -950,10 +834,8 @@ public class NumberUtilsTest
 
     //region --------------- randDelta (x3) ---------------------
     @Test
-    public void randDelta_Right ()
-    {
-        for (int i = 0; i < 1000; i++)
-        {
+    public void randDelta_Right() {
+        for (int i = 0; i < 1000; i++) {
             int center = random.nextInt() / 3;
             int delta = Math.abs(random.nextInt() / 3);
 
@@ -964,11 +846,9 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void randDelta_NegativeDelta ()
-    {
-        for (int i = 0; i < 1000; i++)
-        {
+    @Test(expected = IllegalArgumentException.class)
+    public void randDelta_NegativeDelta() {
+        for (int i = 0; i < 1000; i++) {
             int center = random.nextInt() / 3;
             int delta = negativeOf(random.nextInt() / 3);
 
@@ -976,9 +856,8 @@ public class NumberUtilsTest
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void randDelta_ZeroCenterAndDelta ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void randDelta_ZeroCenterAndDelta() {
         int center = 0;
         int delta = 0;
 
@@ -987,36 +866,31 @@ public class NumberUtilsTest
     //endregion
 
     //region --------------- Private classes --------------------
-    private class NotComparable
-    {
+    private class NotComparable {
         int val1;
         int val2;
         int val3;
 
-        NotComparable (int val1, int val2, int val3)
-        {
+        NotComparable(int val1, int val2, int val3) {
             this.val1 = val1;
             this.val2 = val2;
             this.val3 = val3;
         }
     }
 
-    private class Comparable implements java.lang.Comparable<Comparable>
-    {
+    private class Comparable implements java.lang.Comparable<Comparable> {
         int val1;
         int val2;
         int val3;
 
-        Comparable (int val1, int val2, int val3)
-        {
+        Comparable(int val1, int val2, int val3) {
             this.val1 = val1;
             this.val2 = val2;
             this.val3 = val3;
         }
 
         @Override
-        public int compareTo (@NotNull NumberUtilsTest.Comparable comparable)
-        {
+        public int compareTo(@NotNull NumberUtilsTest.Comparable comparable) {
             if (val3 > comparable.val3) return 1;
             if (val3 < comparable.val3) return -1;
 

@@ -18,14 +18,13 @@ import static org.junit.Assert.*;
  .
  . The ArrayList8Test	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 16/03/18 14:59
+ . Last Modified : 17/11/18 01:08
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
-@SuppressWarnings ({"Duplicates", "MismatchedQueryAndUpdateOfCollection", "ResultOfMethodCallIgnored"})
-public class ArrayList8Test
-{
+@SuppressWarnings({"Duplicates", "MismatchedQueryAndUpdateOfCollection", "ResultOfMethodCallIgnored"})
+public class ArrayList8Test {
     //region --------------- Attributes ----------------------
     private Predicate<TestObject> positive = testObject -> testObject.val1 > 0 && testObject.val2 > 0 && testObject.val3 > 0;
 
@@ -42,19 +41,15 @@ public class ArrayList8Test
 
     //region --------------- constructors (x3) ---------------
     @Test
-    public void constructor_empty ()
-    {
+    public void constructor_empty() {
         ArrayList8<Object> list8 = new ArrayList8<>();
         assertTrue(list8.isEmpty());
     }
 
     @Test
-    public void constructor_collection ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
-            ArrayList8<TestObject> testList = new ArrayList8<TestObject>()
-            {{
+    public void constructor_collection() {
+        for (int i = 0; i < 2000; i++) {
+            ArrayList8<TestObject> testList = new ArrayList8<TestObject>() {{
                 IntStream.range(0, randDelta(30, 10)).forEach(i -> add(randTestObject()));
             }};
 
@@ -66,16 +61,13 @@ public class ArrayList8Test
     }
 
     @Test
-    public void constructor_array ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
+    public void constructor_array() {
+        for (int i = 0; i < 2000; i++) {
             int randAmount = randDelta(30, 10);
 
             TestObject[] testArray = new TestObject[randAmount];
 
-            for (int j = 0; j < randAmount; j++)
-            {
+            for (int j = 0; j < randAmount; j++) {
                 testArray[j] = randTestObject();
             }
 
@@ -89,14 +81,11 @@ public class ArrayList8Test
 
     //region --------------- getRandom (x2) ------------------
     @Test
-    public void getRandom_Right ()
-    {
+    public void getRandom_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
 
-        for (int i = 0; i < 2000; i++)
-        {
-            for (int j = 0; j < 500; j++)
-            {
+        for (int i = 0; i < 2000; i++) {
+            for (int j = 0; j < 500; j++) {
                 TestObject testObject = randTestObject();
                 list.add(testObject);
             }
@@ -128,9 +117,8 @@ public class ArrayList8Test
         assertTrue(got1 || got2);
     }
 
-    @Test (expected = IndexOutOfBoundsException.class)
-    public void getRandom_Empty ()
-    {
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void getRandom_Empty() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.getRandom();
     }
@@ -138,14 +126,11 @@ public class ArrayList8Test
 
     //region --------------- removeRandom (x2) ---------------
     @Test
-    public void removeRandom_Right ()
-    {
+    public void removeRandom_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
 
-        for (int i = 0; i < 2000; i++)
-        {
-            for (int j = 0; j < 500; j++)
-            {
+        for (int i = 0; i < 2000; i++) {
+            for (int j = 0; j < 500; j++) {
                 TestObject testObject = randTestObject();
                 list.add(testObject);
             }
@@ -160,9 +145,8 @@ public class ArrayList8Test
         }
     }
 
-    @Test (expected = IndexOutOfBoundsException.class)
-    public void removeRandom_Empty ()
-    {
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void removeRandom_Empty() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.removeRandom();
     }
@@ -170,17 +154,13 @@ public class ArrayList8Test
 
     //region --------------- merge (x3) ----------------------
     @Test
-    public void merge_Right ()
-    {
-        for (int i = 0; i < 1000; i++)
-        {
-            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>()
-            {{
+    public void merge_Right() {
+        for (int i = 0; i < 1000; i++) {
+            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>() {{
                 IntStream.range(0, randDelta(30, 10)).forEach(i -> add(randTestObject()));
             }};
 
-            ArrayList8<TestObject> list2 = new ArrayList8<TestObject>()
-            {{
+            ArrayList8<TestObject> list2 = new ArrayList8<TestObject>() {{
                 IntStream.range(0, randDelta(30, 10)).forEach(i -> add(randTestObject()));
             }};
 
@@ -196,8 +176,7 @@ public class ArrayList8Test
     }
 
     @Test
-    public void merge_Empty ()
-    {
+    public void merge_Empty() {
         ArrayList8<TestObject> list1 = new ArrayList8<>();
         ArrayList8<TestObject> list2 = new ArrayList8<>();
         ArrayList8<TestObject> merge = list1.merge(list2);
@@ -205,9 +184,8 @@ public class ArrayList8Test
         assertTrue(merge.isEmpty());
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void merge_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void merge_Null() {
         ArrayList8<TestObject> list1 = new ArrayList8<>();
         list1.merge(null);
     }
@@ -215,15 +193,12 @@ public class ArrayList8Test
 
     //region --------------- addIf (x4) ----------------------
     @Test
-    public void addIf_Right ()
-    {
+    public void addIf_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         int count = 0;
 
-        for (int i = 0; i < 2000; i++)
-        {
-            for (int j = 0; j < 500; j++)
-            {
+        for (int i = 0; i < 2000; i++) {
+            for (int j = 0; j < 500; j++) {
                 TestObject testObject = randTestObject();
                 list.addIf(testObject, positive);
 
@@ -240,22 +215,19 @@ public class ArrayList8Test
         assertEquals(0, list.countIf(positive));
     }
 
-    public void addIf_NullValue ()
-    {
+    public void addIf_NullValue() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addIf(null, positive);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void addIf_NullPredicate ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void addIf_NullPredicate() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addIf(randTestObject(), null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void addIf_NullBoth ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void addIf_NullBoth() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addIf(null, null);
     }
@@ -264,18 +236,14 @@ public class ArrayList8Test
     //region --------------- addAllIf (x4) -------------------
     @Test
 
-    public void addAllIf_Right ()
-    {
+    public void addAllIf_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         ArrayList8<TestObject> tmpList = new ArrayList8<>();
         int count = 0;
 
-        for (int i = 0; i < 2000; i++)
-        {
-            for (int j = 0; j < 50; j++)
-            {
-                for (int k = 0; k < 10; k++)
-                {
+        for (int i = 0; i < 2000; i++) {
+            for (int j = 0; j < 50; j++) {
+                for (int k = 0; k < 10; k++) {
                     TestObject testObject = randTestObject();
                     tmpList.add(testObject);
                     if (positive.test(testObject)) count++;
@@ -297,23 +265,20 @@ public class ArrayList8Test
         assertEquals(0, list.size());
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void addAllIf_NullValue ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void addAllIf_NullValue() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addAllIf(null, positive);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void addAllIf_NullPredicate ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void addAllIf_NullPredicate() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addAllIf(new ArrayList8<>(), null);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void addAllIf_NullBoth ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void addAllIf_NullBoth() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addAllIf(null, null);
     }
@@ -321,15 +286,12 @@ public class ArrayList8Test
 
     //region --------------- contains (x3) -------------------
     @Test
-    public void contains_Right ()
-    {
+    public void contains_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         boolean foundPositive = false;
 
-        for (int i = 0; i < 2000; i++)
-        {
-            for (int j = 0; j < 500; j++)
-            {
+        for (int i = 0; i < 2000; i++) {
+            for (int j = 0; j < 500; j++) {
                 TestObject testObject = randTestObject();
 
                 list.add(testObject);
@@ -344,15 +306,13 @@ public class ArrayList8Test
     }
 
     @Test
-    public void contains_Empty ()
-    {
+    public void contains_Empty() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         assertFalse(list.contains(positive));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void contains_NullPredicate ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void contains_NullPredicate() {
         Predicate<TestObject> predicate = null;
 
         new ArrayList8<TestObject>().contains(predicate);
@@ -361,13 +321,11 @@ public class ArrayList8Test
 
     //region --------------- containsAny (x3) ----------------
     @Test
-    public void containsAny_Right ()
-    {
+    public void containsAny_Right() {
         ArrayList8<TestObject> testList = new ArrayList8<>();
         ArrayList8<TestObject> list = new ArrayList8<>();
 
-        for (int i = 0; i < 2000; i++)
-        {
+        for (int i = 0; i < 2000; i++) {
             TestObject commonTestObject = randTestObject();
 
             testList.add(commonTestObject);
@@ -383,15 +341,13 @@ public class ArrayList8Test
     }
 
     @Test
-    public void containsAny_Empty ()
-    {
+    public void containsAny_Empty() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         assertFalse(list.containsAny());
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void containsAny_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void containsAny_Null() {
         TestObject[] testArray = null;
         new ArrayList8<TestObject>().containsAny(testArray);
     }
@@ -399,15 +355,12 @@ public class ArrayList8Test
 
     //region --------------- containsAll (x3) ----------------
     @Test
-    public void containsAll_Right ()
-    {
+    public void containsAll_Right() {
         ArrayList8<TestObject> testList = new ArrayList8<>();
         ArrayList8<TestObject> list = new ArrayList8<>();
 
-        for (int i = 0; i < 2000; i++)
-        {
-            for (int j = 0; j < 30; j++)
-            {
+        for (int i = 0; i < 2000; i++) {
+            for (int j = 0; j < 30; j++) {
                 TestObject testObject = randTestObject();
                 testList.add(testObject);
                 list.add(testObject);
@@ -425,15 +378,13 @@ public class ArrayList8Test
     }
 
     @Test
-    public void containsAll_Empty ()
-    {
+    public void containsAll_Empty() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         assertFalse(list.contains(positive));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void containsAll_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void containsAll_Null() {
         Predicate<TestObject> predicate = null;
 
         new ArrayList8<TestObject>().contains(predicate);
@@ -442,15 +393,12 @@ public class ArrayList8Test
 
     //region --------------- countIf (x2) --------------------
     @Test
-    public void countIf_Right ()
-    {
+    public void countIf_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         int count = 0;
 
-        for (int i = 0; i < 2000; i++)
-        {
-            for (int j = 0; j < 500; j++)
-            {
+        for (int i = 0; i < 2000; i++) {
+            for (int j = 0; j < 500; j++) {
                 TestObject testObject = randTestObject();
                 list.add(testObject);
 
@@ -467,9 +415,8 @@ public class ArrayList8Test
         assertEquals(0, list.countIf(positive));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void countIf_NullPredicate ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void countIf_NullPredicate() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.countIf(null);
     }
@@ -477,47 +424,41 @@ public class ArrayList8Test
 
     //region --------------- sublist (x2) --------------------
     @Test
-    public void sublist_Right ()
-    {
+    public void sublist_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         int count = 0;
 
-        for (int i = 0; i < 2000; i++)
-        {
-            for (int j = 0; j < 500; j++)
-            {
+        for (int i = 0; i < 2000; i++) {
+            for (int j = 0; j < 500; j++) {
                 TestObject testObject = randTestObject();
                 list.add(testObject);
 
                 if (positive.test(testObject)) count++;
             }
 
-            assertEquals(count, list.subList(positive).size());
+            assertEquals(count, list.where(positive).size());
 
             list.clear();
             count = 0;
         }
 
         list.clear();
-        assertEquals(0, list.subList(positive).size());
+        assertEquals(0, list.where(positive).size());
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void sublist_NullPredicate ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void sublist_NullPredicate() {
         ArrayList8<TestObject> list = new ArrayList8<>();
-        list.subList(null);
+        list.where(null);
     }
     //endregion
 
     //region --------------- findAny (x2) --------------------
     @Test
-    public void findAny_Right ()
-    {
+    public void findAny_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
 
-        for (int i = 0; i < 2000; i++)
-        {
+        for (int i = 0; i < 2000; i++) {
             IntStream.range(0, 500).mapToObj(j -> randTestObject()).forEach(list::add);
 
             Optional<TestObject> any1 = list.stream().filter(positive).findAny();
@@ -530,9 +471,8 @@ public class ArrayList8Test
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void findAny_NullPredicate ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void findAny_NullPredicate() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.findAny(null);
     }
@@ -540,12 +480,10 @@ public class ArrayList8Test
 
     //region --------------- findFirst (x2) ------------------
     @Test
-    public void findFirst_Right ()
-    {
+    public void findFirst_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
 
-        for (int i = 0; i < 2000; i++)
-        {
+        for (int i = 0; i < 2000; i++) {
             IntStream.range(0, 500).mapToObj(j -> randTestObject()).forEach(list::add);
 
             Optional<TestObject> first1 = list.stream().filter(positive).findFirst();
@@ -559,15 +497,13 @@ public class ArrayList8Test
     }
 
     @Test
-    public void findFirst_Empty ()
-    {
+    public void findFirst_Empty() {
         ArrayList8<TestObject> testList = new ArrayList8<>();
         assertEquals(testList.findFirst(positive), Optional.empty());
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void findFirst_NullPredicate ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void findFirst_NullPredicate() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.findFirst(null);
     }
@@ -575,16 +511,13 @@ public class ArrayList8Test
 
     //region --------------- max (x2) ------------------------
     @Test
-    public void max_Right ()
-    {
+    public void max_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
 
-        for (int i = 0; i < 2000; i++)
-        {
+        for (int i = 0; i < 2000; i++) {
             TestObject max = null;
 
-            for (int j = 0; j < 500; j++)
-            {
+            for (int j = 0; j < 500; j++) {
                 TestObject testObject = randTestObject();
 
                 if (max == null || comparator.compare(testObject, max) > 0) max = testObject;
@@ -601,9 +534,8 @@ public class ArrayList8Test
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void max_NullPredicate ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void max_NullPredicate() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.max(null);
     }
@@ -611,16 +543,13 @@ public class ArrayList8Test
 
     //region --------------- min (x2) ------------------------
     @Test
-    public void min_Right ()
-    {
+    public void min_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
 
-        for (int i = 0; i < 2000; i++)
-        {
+        for (int i = 0; i < 2000; i++) {
             TestObject min = null;
 
-            for (int j = 0; j < 500; j++)
-            {
+            for (int j = 0; j < 500; j++) {
                 TestObject testObject = randTestObject();
 
                 if (min == null || comparator.compare(testObject, min) < 0) min = testObject;
@@ -637,9 +566,8 @@ public class ArrayList8Test
         }
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void min_NullPredicate ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void min_NullPredicate() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.min(null);
     }
@@ -647,12 +575,9 @@ public class ArrayList8Test
 
     //region --------------- reduce (x3) ---------------------
     @Test
-    public void reduce_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
-            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>()
-            {
+    public void reduce_Right() {
+        for (int i = 0; i < 2000; i++) {
+            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>() {
                 {
                     IntStream.range(0, randDelta(10, 5)).forEach(i -> add(randTestObject()));
                 }
@@ -669,8 +594,7 @@ public class ArrayList8Test
     }
 
     @Test
-    public void reduce_Empty ()
-    {
+    public void reduce_Empty() {
         ArrayList8<TestObject> list1 = new ArrayList8<>();
 
         Optional<TestObject> opt = list1.reduce((o1, o2) -> new TestObject(o1.val1 + o2.val1, o1.val2 + o2.val2, o1.val3 + o2.val3));
@@ -678,9 +602,8 @@ public class ArrayList8Test
         assertFalse(opt.isPresent());
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void reduce_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void reduce_Null() {
         ArrayList8<TestObject> list1 = new ArrayList8<>();
 
         list1.reduce(null);
@@ -689,12 +612,9 @@ public class ArrayList8Test
 
     //region --------------- map (x3) ------------------------
     @Test
-    public void map_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
-            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>()
-            {{
+    public void map_Right() {
+        for (int i = 0; i < 2000; i++) {
+            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>() {{
                 IntStream.range(0, randDelta(10, 5)).forEach(i -> add(randTestObject()));
             }};
 
@@ -705,8 +625,7 @@ public class ArrayList8Test
     }
 
     @Test
-    public void map_Empty ()
-    {
+    public void map_Empty() {
         ArrayList8<TestObject> list1 = new ArrayList8<>();
 
         ArrayList8<Integer> collect = list1.map(testObject -> testObject.val1).collect(toCollection(ArrayList8::new));
@@ -714,9 +633,8 @@ public class ArrayList8Test
         IntStream.range(0, list1.size()).forEach(i -> assertEquals(list1.get(i).val1, collect.get(i), 0.0001));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void map_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void map_Null() {
         ArrayList8<TestObject> list1 = new ArrayList8<>();
 
         list1.map(null);
@@ -725,12 +643,9 @@ public class ArrayList8Test
 
     //region --------------- map (x3) ------------------------
     @Test
-    public void mapAndCollect_Right ()
-    {
-        for (int i = 0; i < 2000; i++)
-        {
-            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>()
-            {{
+    public void mapAndCollect_Right() {
+        for (int i = 0; i < 2000; i++) {
+            ArrayList8<TestObject> list1 = new ArrayList8<TestObject>() {{
                 IntStream.range(0, randDelta(10, 5)).forEach(i -> add(randTestObject()));
             }};
 
@@ -741,8 +656,7 @@ public class ArrayList8Test
     }
 
     @Test
-    public void mapAndCollect_Empty ()
-    {
+    public void mapAndCollect_Empty() {
         ArrayList8<TestObject> list1 = new ArrayList8<>();
 
         ArrayList8<Integer> collect = list1.mapAndCollect(testObject -> testObject.val1);
@@ -750,9 +664,8 @@ public class ArrayList8Test
         IntStream.range(0, list1.size()).forEach(i -> assertEquals(list1.get(i).val1, collect.get(i), 0.0001));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void mapAndCollect_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void mapAndCollect_Null() {
         ArrayList8<TestObject> list1 = new ArrayList8<>();
 
         list1.mapAndCollect(null);
@@ -761,8 +674,7 @@ public class ArrayList8Test
 
     //region --------------- OtherMethods --------------------
     @NotNull
-    private TestObject randTestObject ()
-    {
+    private TestObject randTestObject() {
         int val1 = ThreadLocalRandom.current().nextInt();
         int val2 = ThreadLocalRandom.current().nextInt();
         int val3 = ThreadLocalRandom.current().nextInt();
@@ -772,14 +684,12 @@ public class ArrayList8Test
     //endregion
 
     //region --------------- Private classes -----------------
-    private class TestObject
-    {
+    private class TestObject {
         int val1;
         int val2;
         int val3;
 
-        TestObject (int val1, int val2, int val3)
-        {
+        TestObject(int val1, int val2, int val3) {
             this.val1 = val1;
             this.val2 = val2;
             this.val3 = val3;

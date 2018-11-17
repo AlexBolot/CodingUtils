@@ -15,27 +15,24 @@ import static org.junit.Assert.assertEquals;
  .
  . The FormatUtilsTest	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 20/02/18 23:11
+ . Last Modified : 17/11/18 01:08
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
-@SuppressWarnings ("ConstantConditions")
-public class FormatUtilsTest
-{
+@SuppressWarnings("ConstantConditions")
+public class FormatUtilsTest {
+    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     //region --------------- Attributes --------------------------
     private String string;
-    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     //endregion
 
     //region --------------- SetUp - TearDown --------------------
-    private void setUp_OutputStream ()
-    {
+    private void setUp_OutputStream() {
         System.setOut(new PrintStream(outputStream));
     }
 
-    private void clear_OutputStream ()
-    {
+    private void clear_OutputStream() {
         System.setOut(null);
     }
     //endregion
@@ -43,8 +40,7 @@ public class FormatUtilsTest
     //region --------------- toFirstUpperCase (x2) ---------------
 
     @Test
-    public void toFirstUpperCase_Right ()
-    {
+    public void toFirstUpperCase_Right() {
         string = "ALL UPPER CASE";
         assertEquals("All upper case", FormatUtils.toFirstUpperCase(string));
 
@@ -67,9 +63,8 @@ public class FormatUtilsTest
         assertEquals("", FormatUtils.toFirstUpperCase(string));
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void toFirstUpperCase_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void toFirstUpperCase_Null() {
         string = null;
 
         FormatUtils.toFirstUpperCase(string);
@@ -80,8 +75,7 @@ public class FormatUtilsTest
     //region --------------- printList (x4) ----------------------
 
     @Test
-    public void printList_Right ()
-    {
+    public void printList_Right() {
         setUp_OutputStream();
 
         Object o1 = new Object();
@@ -102,8 +96,7 @@ public class FormatUtilsTest
     }
 
     @Test
-    public void printList_Empty ()
-    {
+    public void printList_Empty() {
         setUp_OutputStream();
 
         ArrayList<Object> objects = new ArrayList<>();
@@ -119,9 +112,8 @@ public class FormatUtilsTest
         clear_OutputStream();
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void printList_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void printList_Null() {
         List<Object> objects = null;
 
         String start = "{";
@@ -131,9 +123,8 @@ public class FormatUtilsTest
         FormatUtils.printListFancy(objects, start, separator, end);
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void printList_NullParams ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void printList_NullParams() {
         setUp_OutputStream();
 
         Object o1 = new Object();
@@ -158,8 +149,7 @@ public class FormatUtilsTest
     //region --------------- printArray (x4) ---------------------
 
     @Test
-    public void printArray_Right ()
-    {
+    public void printArray_Right() {
         setUp_OutputStream();
 
         Object o1 = new Object();
@@ -180,8 +170,7 @@ public class FormatUtilsTest
     }
 
     @Test
-    public void printArray_Empty ()
-    {
+    public void printArray_Empty() {
         setUp_OutputStream();
 
         Object[] objects = new Object[]{};
@@ -197,9 +186,8 @@ public class FormatUtilsTest
         clear_OutputStream();
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void printArray_Null ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void printArray_Null() {
         Object[] objects = null;
 
         String start = "{";
@@ -210,9 +198,8 @@ public class FormatUtilsTest
     }
 
 
-    @Test (expected = IllegalArgumentException.class)
-    public void printArray_NullParams ()
-    {
+    @Test(expected = IllegalArgumentException.class)
+    public void printArray_NullParams() {
         setUp_OutputStream();
 
         Object o1 = new Object();

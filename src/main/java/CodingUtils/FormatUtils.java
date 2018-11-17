@@ -10,26 +10,24 @@ import java.util.List;
  .
  . The FormatUtils	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 20/02/18 23:18
+ . Last Modified : 17/11/18 01:08
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
-@SuppressWarnings ({"WeakerAccess", "unused", "ConstantConditions"})
-public class FormatUtils
-{
+@SuppressWarnings({"WeakerAccess", "unused", "ConstantConditions"})
+public class FormatUtils {
     //region --------------- toFirstUpperCase (x1) ---------------
 
     /**
-     <hr>
-     <h2>Formats [string] with FirstUpperCase format</h2>
-     <hr>
-
-     @param string String to format
-     @return A formatted version of [string]
+     * <hr>
+     * <h2>Formats [string] with FirstUpperCase format</h2>
+     * <hr>
+     *
+     * @param string String to format
+     * @return A formatted version of [string]
      */
-    public static String toFirstUpperCase (@NotNull String string)
-    {
+    public static String toFirstUpperCase(@NotNull String string) {
         if (string.isEmpty()) return string;
         if (string.length() == 1) return string.toUpperCase();
 
@@ -40,16 +38,14 @@ public class FormatUtils
     //region --------------- print fancy (x2) --------------------
 
     /**
-     <hr>
-     <h2>Prints all elements of the [objects] list</h2>
-     <hr>
-
-     @param objects List of T objects to be printed
+     * <hr>
+     * <h2>Prints all elements of the [objects] list</h2>
+     * <hr>
+     *
+     * @param objects List of T objects to be printed
      */
-    public static <T> void printListFancy (@NotNull List<T> objects, @NotNull String start, @NotNull String separator, @NotNull String end)
-    {
-        if (objects.isEmpty())
-        {
+    public static <T> void printListFancy(@NotNull List<T> objects, @NotNull String start, @NotNull String separator, @NotNull String end) {
+        if (objects.isEmpty()) {
             System.out.print(start + end);
             return;
         }
@@ -68,14 +64,13 @@ public class FormatUtils
     }
 
     /**
-     <hr>
-     <h2>Prints all elements of the [objects] array</h2>
-     <hr>
-
-     @param objects Array of T objects to be printed
+     * <hr>
+     * <h2>Prints all elements of the [objects] array</h2>
+     * <hr>
+     *
+     * @param objects Array of T objects to be printed
      */
-    public static <T> void printArrayFancy (@NotNull T[] objects, @NotNull String start, @NotNull String separator, @NotNull String end)
-    {
+    public static <T> void printArrayFancy(@NotNull T[] objects, @NotNull String start, @NotNull String separator, @NotNull String end) {
         printListFancy(Arrays.asList(objects), start, separator, end);
     }
     //endregion
