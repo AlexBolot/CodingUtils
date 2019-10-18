@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  .
  . The ArrayList8	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 17/11/18 01:08
+ . Last Modified : 18/10/2019 10:20
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
@@ -58,7 +58,7 @@ public class ArrayList8<E> extends ArrayList<E> {
     }
 
     public boolean addIf(E value, @NotNull Predicate<? super E> filter) {
-        return filter.test(value) && add(value);
+        return value != null && filter.test(value) && add(value);
     }
 
     public int addAllIf(@NotNull Collection<? extends E> collection, @NotNull Predicate<? super E> filter) {
@@ -86,7 +86,7 @@ public class ArrayList8<E> extends ArrayList<E> {
         return Arrays.stream(items).allMatch(this::contains);
     }
 
-    public int countIf(@NotNull Predicate<? super E> filter) {
+    public int countWhere(@NotNull Predicate<? super E> filter) {
         return (int) this.stream().filter(filter::test).count();
     }
 

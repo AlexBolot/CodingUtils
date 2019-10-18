@@ -18,12 +18,12 @@ import static org.junit.Assert.*;
  .
  . The ArrayList8Test	 Class was Coded by : Alexandre BOLOT
  .
- . Last Modified : 17/11/18 01:08
+ . Last Modified : 17/11/2018 01:42
  .
  . Contact : bolotalex06@gmail.com
  ...............................................................................................................................*/
 
-@SuppressWarnings({"Duplicates", "MismatchedQueryAndUpdateOfCollection", "ResultOfMethodCallIgnored"})
+@SuppressWarnings({"Duplicates", "MismatchedQueryAndUpdateOfCollection", "ResultOfMethodCallIgnored", "ConstantConditions"})
 public class ArrayList8Test {
     //region --------------- Attributes ----------------------
     private Predicate<TestObject> positive = testObject -> testObject.val1 > 0 && testObject.val2 > 0 && testObject.val3 > 0;
@@ -212,9 +212,10 @@ public class ArrayList8Test {
         }
 
         list.clear();
-        assertEquals(0, list.countIf(positive));
+        assertEquals(0, list.countWhere(positive));
     }
 
+    @Test
     public void addIf_NullValue() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         list.addIf(null, positive);
@@ -234,8 +235,8 @@ public class ArrayList8Test {
     //endregion
 
     //region --------------- addAllIf (x4) -------------------
-    @Test
 
+    @Test
     public void addAllIf_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
         ArrayList8<TestObject> tmpList = new ArrayList8<>();
@@ -391,7 +392,7 @@ public class ArrayList8Test {
     }
     //endregion
 
-    //region --------------- countIf (x2) --------------------
+    //region --------------- countWhere (x2) --------------------
     @Test
     public void countIf_Right() {
         ArrayList8<TestObject> list = new ArrayList8<>();
@@ -405,20 +406,20 @@ public class ArrayList8Test {
                 if (positive.test(testObject)) count++;
             }
 
-            assertEquals(count, list.countIf(positive));
+            assertEquals(count, list.countWhere(positive));
 
             list.clear();
             count = 0;
         }
 
         list.clear();
-        assertEquals(0, list.countIf(positive));
+        assertEquals(0, list.countWhere(positive));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void countIf_NullPredicate() {
         ArrayList8<TestObject> list = new ArrayList8<>();
-        list.countIf(null);
+        list.countWhere(null);
     }
     //endregion
 
